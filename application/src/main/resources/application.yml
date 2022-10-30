@@ -1,0 +1,5 @@
+micronaut:
+  application:
+    name: pis
+mongodb:
+  uuid-representation: JAVA_LEGACY
