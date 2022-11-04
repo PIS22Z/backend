@@ -1,5 +1,7 @@
 micronaut:
   application:
     name: pis
+  server:
+    context-path: /api
 mongodb:
   uuid-representation: JAVA_LEGACY
