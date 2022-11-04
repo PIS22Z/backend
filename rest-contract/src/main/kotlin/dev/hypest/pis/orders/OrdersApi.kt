@@ -10,7 +10,7 @@ import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Put
 import java.util.UUID
 
-@Controller("/api/orders")
+@Controller("/orders")
 interface OrdersApi {
 
     @Get
