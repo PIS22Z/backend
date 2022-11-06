@@ -1,0 +1,18 @@
+dependencyManagement {
+    dependencies {
+        dependency("io.micronaut.data:micronaut-data-document-processor:3.8.1")
+        dependency("io.micronaut:micronaut-jackson-databind:3.7.3")
+        dependency("io.micronaut:micronaut-http-server-netty:3.7.3")
+        dependency("io.micronaut:micronaut-validation:3.7.3")
+        dependency("io.micronaut:micronaut-http-client:3.7.3")
+        dependency("io.micronaut.rabbitmq:micronaut-rabbitmq:3.3.0")
+        dependency("io.micronaut.kotlin:micronaut-kotlin-runtime:3.2.2")
+        dependency("io.micronaut.data:micronaut-data-mongodb:3.8.1")
+        dependency("jakarta.annotation:jakarta.annotation-api:2.1.1")
+        dependency("org.jetbrains.kotlin:kotlin-reflect:${kotlinPluginVersion}")
+        dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinPluginVersion}")
+        dependency("ch.qos.logback:logback-classic:1.4.4")
+        dependency("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.4")
+        dependency("org.mongodb:mongodb-driver-sync:4.7.2")
+    }
+}
