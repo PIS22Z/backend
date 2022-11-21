@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "f5241206-516a-4dce-a92d-70270007c2a0",
+		"_postman_id": "3f0f974c-c59a-4bf9-b020-03cc4447e642",
 		"name": "PIS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "19345317"
+		"_exporter_id": "17478370"
 	},
 	"item": [
 		{
@@ -74,13 +74,93 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Add item to Draft Order",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": \"{{$guid}}\",\r\n    \"quantity\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/orders/{{order_id}}/add",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_id}}",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove item from Draft Order",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": \"{{$guid}}\",\r\n    \"quantity\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/orders/{{order_id}}/remove",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_id}}",
+								"remove"
+							]
+						}
+					},
+					"response": []
 				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	],
 	"variable": [
 		{
 			"key": "order_id",
+			"value": ""
+		},
+		{
+			"key": "monolith_url",
 			"value": ""
 		}
 	]

@@ -5,11 +5,15 @@ package dev.hypest.pis.orders.adapter.`in`.rest
 import dev.hypest.pis.common.UuidWrapper
 import dev.hypest.pis.orders.CreateOrderRequest
 import dev.hypest.pis.orders.FinalizeOrderRequest
+import dev.hypest.pis.orders.ModifyOrderItemRequest
 import dev.hypest.pis.orders.OrdersApi
 import dev.hypest.pis.orders.adapter.`in`.mapper.DraftOrderMapper.mapToCreateOrderCommand
 import dev.hypest.pis.orders.adapter.`in`.mapper.DraftOrderMapper.mapToFinalizeOrderCommand
+import dev.hypest.pis.orders.adapter.`in`.mapper.DraftOrderMapper.mapToModifyOrderItemCommand
+import dev.hypest.pis.orders.domain.draftorder.AddItemToOrderHandler
 import dev.hypest.pis.orders.domain.draftorder.CreateOrderHandler
 import dev.hypest.pis.orders.domain.draftorder.FinalizeOrderHandler
+import dev.hypest.pis.orders.domain.draftorder.RemoveItemFromOrderHandler
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
@@ -22,7 +26,9 @@ import java.util.UUID
 @Controller("/orders")
 class OrdersController(
     private val createOrderHandler: CreateOrderHandler,
-    private val finalizeOrderHandler: FinalizeOrderHandler
+    private val finalizeOrderHandler: FinalizeOrderHandler,
+    private val addItemToOrderHandler: AddItemToOrderHandler,
+    private val removeItemFromOrderHandler: RemoveItemFromOrderHandler
 ) : OrdersApi {
 
     @Get
@@ -35,6 +41,26 @@ class OrdersController(
         val command = mapToCreateOrderCommand(request)
         val id = createOrderHandler.create(command)
         return HttpResponse.created(UuidWrapper(id))
+    }
+
+    @Put("/{orderId}/add")
+    override fun addProductToOrder(
+        @PathVariable orderId: UUID,
+        @Body request: ModifyOrderItemRequest
+    ): HttpResponse<UuidWrapper> {
+        val command = mapToModifyOrderItemCommand(orderId, request)
+        val id = addItemToOrderHandler.addItem(command)
+        return HttpResponse.ok(UuidWrapper(id))
+    }
+
+    @Put("/{orderId}/remove")
+    override fun removeProductFromOrder(
+        @PathVariable orderId: UUID,
+        @Body request: ModifyOrderItemRequest
+    ): HttpResponse<UuidWrapper> {
+        val command = mapToModifyOrderItemCommand(orderId, request)
+        val id = removeItemFromOrderHandler.removeItem(command)
+        return HttpResponse.ok(UuidWrapper(id))
     }
 
     @Put("/{orderId}/finalize")

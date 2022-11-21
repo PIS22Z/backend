@@ -28,7 +28,21 @@ data class DraftOrder(
 
     fun addItem(productId: UUID, quantity: Int) {
         check(!isFinalized) { "Cannot add item to finalized order" }
-        items.add(OrderItem(productId, quantity))
+        items.firstOrNull { it.productId == productId }?.let {
+            it.quantity += quantity
+        } ?: run {
+            items.add(OrderItem(productId, quantity))
+        }
+    }
+
+    fun removeItem(productId: UUID, quantity: Int) {
+        check(!isFinalized) { "Cannot remove item from finalized order" }
+        items.firstOrNull { it.productId == productId }?.let {
+            it.quantity -= quantity
+            if (it.quantity <= 0) {
+                items.remove(it)
+            }
+        }
     }
 
     fun finalize(amount: BigDecimal) {

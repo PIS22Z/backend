@@ -25,8 +25,17 @@ interface OrdersApi {
         @Body request: FinalizeOrderRequest
     ): HttpResponse<UuidWrapper>
 
-    // TODO PUT: dodaj produkt do koszyka
+    @Put("/{orderId}/add")
+    fun addProductToOrder(
+        @PathVariable orderId: UUID,
+        @Body request: ModifyOrderItemRequest
+    ): HttpResponse<UuidWrapper>
 
+    @Put("/{orderId}/remove")
+    fun removeProductFromOrder(
+        @PathVariable orderId: UUID,
+        @Body request: ModifyOrderItemRequest
+    ): HttpResponse<UuidWrapper>
     // TODO PUT: update delivery details
 
     // TODO GET: active order (only one at a time0
