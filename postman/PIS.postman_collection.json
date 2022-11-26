@@ -158,10 +158,6 @@
 		{
 			"key": "order_id",
 			"value": ""
-		},
-		{
-			"key": "monolith_url",
-			"value": ""
 		}
 	]
 }
