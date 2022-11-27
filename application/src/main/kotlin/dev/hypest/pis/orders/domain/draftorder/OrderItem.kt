@@ -4,5 +4,5 @@ import java.util.UUID
 
 data class OrderItem(
     val productId: UUID,
-    val quantity: Int
+    var quantity: Int
 )
