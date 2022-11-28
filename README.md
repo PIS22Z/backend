@@ -1,15 +1,20 @@
-## Micronaut 3.7.0 Documentation
+## Wymagania
 
-- [User Guide](https://docs.micronaut.io/3.7.0/guide/index.html)
-- [API Reference](https://docs.micronaut.io/3.7.0/api/index.html)
-- [Configuration Reference](https://docs.micronaut.io/3.7.0/guide/configurationreference.html)
-- [Micronaut Guides](https://guides.micronaut.io/index.html)
----
+- JDK 11+
+- Docker
+- docker-compose
 
-- [Shadow Gradle Plugin](https://plugins.gradle.org/plugin/com.github.johnrengelman.shadow)
+## Uruchomienie aplikacji
 
-## Feature test-resources documentation
+Uruchomienie infrastruktury (mongodb + rabbitmq)
 
-- [Micronaut Test Resources documentation](https://micronaut-projects.github.io/micronaut-test-resources/latest/guide/)
+```bash
+docker-compose up -d
+```
 
+Uruchomienie aplikacji
 
+```bash
+./gradlew build -x test
+java -jar build/libs/backend-0.0.1-SNAPSHOT-all.jar
+```

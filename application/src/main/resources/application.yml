@@ -3,5 +3,13 @@ micronaut:
     name: pis
   server:
     context-path: /api
+
 mongodb:
+  uri: mongodb://admin:password@localhost:27017/admin
   uuid-representation: JAVA_LEGACY
+
+rabbitmq:
+  host: localhost
+  port: 5672
+  username: admin
+  password: password
