@@ -19,7 +19,7 @@ spec:
           name: backend
           env:
             - name: MONGODB_URI
-              value: "mongodb://admin:password@mongodb:27017/pis"
+              value: "mongodb://admin:password@mongodb:27017/admin"
             - name: RABBITMQ_HOST
               value: "rabbitmq"
             - name: RABBITMQ_PORT
