@@ -50,7 +50,7 @@ data class DraftOrder(
         var amount = BigDecimal.ZERO
         items.forEach { item ->
             val product = restaurantsPort.getProduct(item.productId)
-            checkNotNull(product) { "Product with ID=${item.productId} not found" }
+            checkNotNull(product) { "Product ${item.productId} not found" }
             amount += product.price * item.quantity.toBigDecimal()
         }
 
