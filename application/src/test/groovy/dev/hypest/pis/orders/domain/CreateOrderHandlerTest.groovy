@@ -27,6 +27,5 @@ class CreateOrderHandlerTest extends BaseTest {
         savedOrder.id == id
         savedOrder.userId == command.userId
         !savedOrder.isFinalized()
-        savedOrder.amount == null
     }
 }

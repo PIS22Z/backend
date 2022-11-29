@@ -8,6 +8,7 @@ import dev.hypest.pis.orders.OrderFinalizedEvent
 import dev.hypest.pis.orders.domain.draftorder.DraftOrderNotFoundException
 import dev.hypest.pis.orders.domain.draftorder.DraftOrderRepository
 import dev.hypest.pis.orders.domain.draftorder.FinalizeOrderHandler
+import dev.hypest.pis.orders.domain.restaurants.OrdersToRestaurantsPort
 import io.micronaut.test.annotation.MockBean
 import jakarta.inject.Inject
 
@@ -22,7 +23,10 @@ class FinalizeOrderHandlerTest extends BaseTest {
     @Inject
     DomainEventPublisher domainEventPublisher
 
-    def "given existing order, when order is finalized, then it should be saved in db and event should be published"() {
+    @Inject
+    OrdersToRestaurantsPort ordersToRestaurantsPort
+
+    def "given existing order and existing products, when order is finalized, then it should be saved in db and event should be published"() {
         given:
         def existingOrder = DraftOrderTestProvider.getAggregate()
         orderRepository.add(existingOrder)
@@ -37,8 +41,8 @@ class FinalizeOrderHandlerTest extends BaseTest {
         savedOrder != null
         savedOrder.id == id
         savedOrder.isFinalized()
-        savedOrder.amount != null
 
+        1 * ordersToRestaurantsPort.getProduct(_ as UUID) >> DraftOrderTestProvider.getProduct()
         1 * domainEventPublisher.publish(_ as OrderFinalizedEvent)
     }
 
@@ -56,8 +60,31 @@ class FinalizeOrderHandlerTest extends BaseTest {
         0 * domainEventPublisher.publish(_ as OrderFinalizedEvent)
     }
 
+    def "given not existing products, when order is finalized, then it should be saved in db and event should be published"() {
+        given:
+        def existingOrder = DraftOrderTestProvider.getAggregate()
+        orderRepository.add(existingOrder)
+
+        def command = DraftOrderTestProvider.getFinalizeOrderCommand(existingOrder.id)
+
+        when:
+        finalizeOrderHandler.finalize(command)
+
+        then:
+        def e = thrown(IllegalStateException)
+        e.message == "Product with ID=${existingOrder.items[0].productId} not found"
+
+        1 * ordersToRestaurantsPort.getProduct(_ as UUID) >> null
+        0 * domainEventPublisher.publish(_ as OrderFinalizedEvent)
+    }
+
     @MockBean(RabbitmqDomainEventPublisher)
     DomainEventPublisher domainEventPublisher() {
         Mock(DomainEventPublisher)
+    }
+
+    @MockBean(OrdersToRestaurantsPort)
+    OrdersToRestaurantsPort ordersToRestaurantsPort() {
+        Mock(OrdersToRestaurantsPort)
     }
 }

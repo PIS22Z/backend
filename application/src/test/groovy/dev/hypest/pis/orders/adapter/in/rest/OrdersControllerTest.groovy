@@ -64,7 +64,7 @@ class OrdersControllerTest extends BaseTest {
         def orderId = UUID.randomUUID()
 
         when:
-        def request = new FinalizeOrderRequest(UUID.randomUUID())
+        def request = new FinalizeOrderRequest(UUID.randomUUID(), new FinalizeOrderRequest.DeliveryDetails("address"))
         def response = client.finalizeOrder(orderId, request)
 
         then:
