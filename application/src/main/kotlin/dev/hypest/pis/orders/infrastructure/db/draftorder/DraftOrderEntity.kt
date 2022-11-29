@@ -2,7 +2,6 @@ package dev.hypest.pis.orders.infrastructure.db.draftorder
 
 import io.micronaut.data.annotation.Id
 import io.micronaut.data.annotation.MappedEntity
-import java.math.BigDecimal
 import java.util.UUID
 
 @MappedEntity("draft_order")
