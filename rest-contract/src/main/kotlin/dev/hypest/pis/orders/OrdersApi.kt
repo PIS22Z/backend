@@ -36,7 +36,5 @@ interface OrdersApi {
         @PathVariable orderId: UUID,
         @Body request: ModifyOrderItemRequest
     ): HttpResponse<UuidWrapper>
-    // TODO PUT: update delivery details
-
     // TODO GET: active order by userId (only one at a time)
 }
