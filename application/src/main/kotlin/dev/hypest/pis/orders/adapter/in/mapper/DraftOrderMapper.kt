@@ -1,10 +1,12 @@
 @file:Suppress("InvalidPackageDeclaration")
+
 package dev.hypest.pis.orders.adapter.`in`.mapper
 
 import dev.hypest.pis.orders.CreateOrderRequest
 import dev.hypest.pis.orders.FinalizeOrderRequest
 import dev.hypest.pis.orders.ModifyOrderItemRequest
 import dev.hypest.pis.orders.domain.draftorder.CreateOrderCommand
+import dev.hypest.pis.orders.domain.draftorder.DeliveryDetails
 import dev.hypest.pis.orders.domain.draftorder.FinalizeOrderCommand
 import dev.hypest.pis.orders.domain.draftorder.ModifyOrderItemCommand
 import dev.hypest.pis.orders.domain.draftorder.OrderItem
@@ -24,7 +26,10 @@ object DraftOrderMapper {
         request: FinalizeOrderRequest
     ): FinalizeOrderCommand = FinalizeOrderCommand(
         orderId = orderId,
-        userId = request.userId
+        userId = request.userId,
+        deliveryDetails = DeliveryDetails(
+            address = request.deliveryDetails.address
+        )
     )
 
     fun mapToModifyOrderItemCommand(

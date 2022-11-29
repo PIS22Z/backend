@@ -15,8 +15,7 @@ object DraftOrderMapper {
                 it.productId, it.quantity
             )
         },
-        isFinalized = draftOrder.isFinalized,
-        amount = draftOrder.amount
+        isFinalized = draftOrder.isFinalized
     )
 
     fun mapToDraftOrder(draftOrderEntity: DraftOrderEntity): DraftOrder = DraftOrder(
@@ -27,8 +26,7 @@ object DraftOrderMapper {
                 it.productId, it.quantity
             )
         }.toMutableList(),
-        isFinalized = draftOrderEntity.isFinalized,
-        amount = draftOrderEntity.amount
+        isFinalized = draftOrderEntity.isFinalized
     )
 }
 

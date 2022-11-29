@@ -13,8 +13,8 @@ import java.util.UUID
 @Controller("/orders")
 interface OrdersApi {
 
-    @Get
-    fun helloWorld(): HttpResponse<String>
+    @Get("/{orderId}")
+    fun getOrder(@PathVariable orderId: UUID): HttpResponse<OrderResponse>
 
     @Post
     fun createOrder(@Body request: CreateOrderRequest): HttpResponse<UuidWrapper>
@@ -38,5 +38,5 @@ interface OrdersApi {
     ): HttpResponse<UuidWrapper>
     // TODO PUT: update delivery details
 
-    // TODO GET: active order (only one at a time0
+    // TODO GET: active order by userId (only one at a time)
 }

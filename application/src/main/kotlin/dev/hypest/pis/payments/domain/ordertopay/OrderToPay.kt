@@ -8,6 +8,7 @@ data class OrderToPay(
     val id: UUID,
     val userId: UUID,
     val amount: BigDecimal,
+    val deliveryDetails: DeliveryDetails,
     var isPaid: Boolean
 ) : AggregateRoot() {
 
@@ -17,11 +18,16 @@ data class OrderToPay(
 
     companion object {
         @JvmStatic
-        fun new(userId: UUID, amount: BigDecimal): OrderToPay {
+        fun new(
+            userId: UUID,
+            amount: BigDecimal,
+            deliveryDetails: DeliveryDetails
+        ): OrderToPay {
             return OrderToPay(
                 id = UUID.randomUUID(),
                 userId = userId,
                 amount = amount,
+                deliveryDetails = deliveryDetails,
                 isPaid = false
             )
         }

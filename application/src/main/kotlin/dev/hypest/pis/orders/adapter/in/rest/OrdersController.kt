@@ -6,6 +6,7 @@ import dev.hypest.pis.common.UuidWrapper
 import dev.hypest.pis.orders.CreateOrderRequest
 import dev.hypest.pis.orders.FinalizeOrderRequest
 import dev.hypest.pis.orders.ModifyOrderItemRequest
+import dev.hypest.pis.orders.OrderResponse
 import dev.hypest.pis.orders.OrdersApi
 import dev.hypest.pis.orders.adapter.`in`.mapper.DraftOrderMapper.mapToCreateOrderCommand
 import dev.hypest.pis.orders.adapter.`in`.mapper.DraftOrderMapper.mapToFinalizeOrderCommand
@@ -31,9 +32,9 @@ class OrdersController(
     private val removeItemFromOrderHandler: RemoveItemFromOrderHandler
 ) : OrdersApi {
 
-    @Get
-    override fun helloWorld(): HttpResponse<String> {
-        return HttpResponse.ok("Hello World!")
+    @Get("/{orderId}")
+    override fun getOrder(@PathVariable orderId: UUID): HttpResponse<OrderResponse> {
+        TODO("Not yet implemented")
     }
 
     @Post

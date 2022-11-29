@@ -11,6 +11,5 @@ data class DraftOrderEntity(
     val id: UUID,
     val userId: UUID,
     val items: List<OrderItem>,
-    val isFinalized: Boolean,
-    val amount: BigDecimal?
+    val isFinalized: Boolean
 )

@@ -15,7 +15,8 @@ class CreateOrderToPayHandlerImpl(
     override fun create(command: CreateOrderToPayCommand): UUID {
         val orderToPay = OrderToPay.new(
             userId = command.userId,
-            amount = command.amount
+            amount = command.amount,
+            deliveryDetails = command.deliveryDetails
         )
         orderToPayRepository.add(orderToPay)
         return orderToPay.id
@@ -25,5 +26,6 @@ class CreateOrderToPayHandlerImpl(
 data class CreateOrderToPayCommand(
     val orderId: UUID,
     val userId: UUID,
-    val amount: BigDecimal
+    val amount: BigDecimal,
+    val deliveryDetails: DeliveryDetails
 )
