@@ -11,8 +11,10 @@ interface CreateActiveOrderHandler {
 class CreateActiveOrderHandlerImpl(
     private val activeOrderRepository: ActiveOrderRepository
 ) : CreateActiveOrderHandler {
+
     override fun create(command: CreateActiveOrderCommand): UUID {
         val activeOrder = ActiveOrder.new(
+            id = command.orderId,
             restaurantId = command.restaurantId,
             userId = command.userId,
             items = command.items

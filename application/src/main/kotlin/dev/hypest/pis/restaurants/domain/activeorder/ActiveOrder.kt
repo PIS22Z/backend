@@ -13,9 +13,9 @@ data class ActiveOrder(
 
     companion object {
         @JvmStatic
-        fun new(restaurantId: UUID, userId: UUID, items: List<OrderItem>): ActiveOrder {
+        fun new(id: UUID, restaurantId: UUID, userId: UUID, items: List<OrderItem>): ActiveOrder {
             return ActiveOrder(
-                id = UUID.randomUUID(),
+                id = id,
                 restaurantId = restaurantId,
                 userId = userId,
                 items = items,

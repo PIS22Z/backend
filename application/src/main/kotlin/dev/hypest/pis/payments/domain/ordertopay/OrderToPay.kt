@@ -24,6 +24,7 @@ data class OrderToPay(
     companion object {
         @JvmStatic
         fun new(
+            id: UUID,
             restaurantId: UUID,
             userId: UUID,
             items: List<OrderItem>,
@@ -31,7 +32,7 @@ data class OrderToPay(
             deliveryDetails: DeliveryDetails
         ): OrderToPay {
             return OrderToPay(
-                id = UUID.randomUUID(),
+                id = id,
                 restaurantId = restaurantId,
                 userId = userId,
                 items = items,
