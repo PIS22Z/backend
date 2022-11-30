@@ -22,6 +22,7 @@ data class OrderToPay(
     }
 
     companion object {
+        @Suppress("LongParameterList")
         @JvmStatic
         fun new(
             id: UUID,
