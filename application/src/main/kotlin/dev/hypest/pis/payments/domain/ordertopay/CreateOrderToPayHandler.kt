@@ -14,7 +14,9 @@ class CreateOrderToPayHandlerImpl(
 ) : CreateOrderToPayHandler {
     override fun create(command: CreateOrderToPayCommand): UUID {
         val orderToPay = OrderToPay.new(
+            restaurantId = command.restaurantId,
             userId = command.userId,
+            items = command.items,
             amount = command.amount,
             deliveryDetails = command.deliveryDetails
         )
@@ -25,7 +27,9 @@ class CreateOrderToPayHandlerImpl(
 
 data class CreateOrderToPayCommand(
     val orderId: UUID,
+    val restaurantId: UUID,
     val userId: UUID,
+    val items: List<OrderItem>,
     val amount: BigDecimal,
     val deliveryDetails: DeliveryDetails
 )

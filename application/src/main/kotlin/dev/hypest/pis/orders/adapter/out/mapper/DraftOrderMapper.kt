@@ -9,6 +9,7 @@ object DraftOrderMapper {
 
     fun mapToDraftOrderEntity(draftOrder: DraftOrder): DraftOrderEntity = DraftOrderEntity(
         id = draftOrder.id,
+        restaurantId = draftOrder.restaurantId,
         userId = draftOrder.userId,
         items = draftOrder.items.map {
             OrderItem(
@@ -20,6 +21,7 @@ object DraftOrderMapper {
 
     fun mapToDraftOrder(draftOrderEntity: DraftOrderEntity): DraftOrder = DraftOrder(
         id = draftOrderEntity.id,
+        restaurantId = draftOrderEntity.restaurantId,
         userId = draftOrderEntity.userId,
         items = draftOrderEntity.items.map {
             DomainOrderItem(

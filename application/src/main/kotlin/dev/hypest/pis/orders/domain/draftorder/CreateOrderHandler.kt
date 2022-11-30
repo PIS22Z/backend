@@ -14,6 +14,7 @@ class CreateOrderHandlerImpl(
 ) : CreateOrderHandler {
     override fun create(command: CreateOrderCommand): UUID {
         val draftOrder = DraftOrder.new(
+            restaurantId = command.restaurantId,
             userId = command.userId,
             items = command.items
         )
@@ -23,6 +24,7 @@ class CreateOrderHandlerImpl(
 }
 
 data class CreateOrderCommand(
+    val restaurantId: UUID,
     val userId: UUID,
     val items: List<OrderItem>
 )

@@ -1,7 +1,7 @@
 package dev.hypest.pis.restaurants.adapter.out.mapper
 
-import dev.hypest.pis.restaurants.domain.Product
-import dev.hypest.pis.restaurants.infrastructure.db.product.ProductEntity
+import dev.hypest.pis.restaurants.domain.products.Product
+import dev.hypest.pis.restaurants.infrastructure.db.products.ProductEntity
 
 object ProductMapper {
 

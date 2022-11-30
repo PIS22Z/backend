@@ -8,6 +8,7 @@ import java.util.UUID
 
 data class DraftOrder(
     val id: UUID,
+    val restaurantId: UUID,
     val userId: UUID,
     val items: MutableList<OrderItem>,
     var isFinalized: Boolean
@@ -15,9 +16,10 @@ data class DraftOrder(
     companion object {
 
         @JvmStatic
-        fun new(userId: UUID, items: List<OrderItem>): DraftOrder {
+        fun new(restaurantId: UUID, userId: UUID, items: List<OrderItem>): DraftOrder {
             return DraftOrder(
                 id = UUID.randomUUID(),
+                restaurantId = restaurantId,
                 userId = userId,
                 items = items.toMutableList(),
                 isFinalized = false
@@ -61,10 +63,12 @@ data class DraftOrder(
     private fun publishOrderFinalizedEvent(amount: BigDecimal, deliveryDetails: DeliveryDetails) {
         publishEvent(
             OrderFinalizedEvent(
-                id,
-                userId,
-                amount,
-                OrderFinalizedEvent.DeliveryDetails(deliveryDetails.address)
+                orderId = id,
+                restaurantId = restaurantId,
+                userId = userId,
+                items = items.map { OrderFinalizedEvent.OrderItem(it.productId, it.quantity) },
+                amount = amount,
+                deliveryDetails = OrderFinalizedEvent.DeliveryDetails(deliveryDetails.address)
             )
         )
     }

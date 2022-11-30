@@ -17,6 +17,7 @@ object DraftOrderMapper {
     fun mapToCreateOrderCommand(
         request: CreateOrderRequest
     ): CreateOrderCommand = CreateOrderCommand(
+        restaurantId = request.restaurantId,
         userId = request.userId,
         items = request.items.map { OrderItem(it.productId, it.quantity) }
     )

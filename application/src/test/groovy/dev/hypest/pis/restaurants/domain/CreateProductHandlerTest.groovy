@@ -2,6 +2,8 @@ package dev.hypest.pis.restaurants.domain
 
 import dev.hypest.pis.BaseTest
 import dev.hypest.pis.restaurants.ProductTestProvider
+import dev.hypest.pis.restaurants.domain.products.CreateProductHandler
+import dev.hypest.pis.restaurants.domain.products.ProductRepository
 import jakarta.inject.Inject
 
 class CreateProductHandlerTest extends BaseTest {
