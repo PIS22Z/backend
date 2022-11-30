@@ -11,7 +11,7 @@ import dev.hypest.pis.orders.domain.restaurants.Product
 class DraftOrderTestProvider {
 
     static CreateOrderCommand getCreateOrderCommand() {
-        return new CreateOrderCommand(UUID.randomUUID(),
+        return new CreateOrderCommand(UUID.randomUUID(), UUID.randomUUID(),
                 [new OrderItem(UUID.randomUUID(),
                         1)])
     }
@@ -25,7 +25,7 @@ class DraftOrderTestProvider {
     }
 
     static DraftOrder getAggregate(Map map = [:]) {
-        return DraftOrder.new(UUID.randomUUID(),
+        return DraftOrder.new(UUID.randomUUID(), UUID.randomUUID(),
                 [new OrderItem(map.productId ?: UUID.randomUUID(),
                         1)])
     }

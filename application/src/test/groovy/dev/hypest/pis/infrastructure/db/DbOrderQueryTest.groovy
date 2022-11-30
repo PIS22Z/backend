@@ -27,6 +27,7 @@ class DbOrderQueryTest extends BaseTest {
                 new DraftOrderEntity(
                         UUID.randomUUID(),
                         UUID.randomUUID(),
+                        UUID.randomUUID(),
                         [
                                 new OrderItem(
                                         UUID.randomUUID(),
@@ -40,6 +41,13 @@ class DbOrderQueryTest extends BaseTest {
                 new OrderToPayEntity(
                         existingOrder.id,
                         UUID.randomUUID(),
+                        UUID.randomUUID(),
+                        [
+                                new dev.hypest.pis.payments.infrastructure.db.ordertopay.OrderItem(
+                                        UUID.randomUUID(),
+                                        1
+                                )
+                        ],
                         BigDecimal.ONE,
                         new DeliveryDetails("address"),
                         false
