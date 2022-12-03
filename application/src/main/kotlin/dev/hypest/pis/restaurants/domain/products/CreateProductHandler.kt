@@ -26,7 +26,6 @@ class CreateProductHandlerImpl(
 }
 
 data class CreateProductCommand(
-    val userId: UUID,
     val restaurantId: UUID,
     val name: String,
     val photoUrl: String,

@@ -14,14 +14,20 @@ data class Product(
     companion object {
 
         @JvmStatic
-        fun new(restaurantId: UUID, name: String, photoUrl: String, price: BigDecimal): Product {
-            return Product(
-                id = UUID.randomUUID(),
-                restaurantId = restaurantId,
-                name = name,
-                photoUrl = photoUrl,
-                price = price
-            )
-        }
+        fun new(restaurantId: UUID, name: String, photoUrl: String, price: BigDecimal): Product = Product(
+            id = UUID.randomUUID(),
+            restaurantId = restaurantId,
+            name = name,
+            photoUrl = photoUrl,
+            price = price
+        )
     }
+
+    fun update(name: String?, photoUrl: String?, price: BigDecimal?): Product = Product(
+        id = id,
+        restaurantId = restaurantId,
+        name = name ?: this.name,
+        photoUrl = photoUrl ?: this.photoUrl,
+        price = price ?: this.price
+    )
 }
