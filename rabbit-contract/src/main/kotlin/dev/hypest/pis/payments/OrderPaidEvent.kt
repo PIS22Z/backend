@@ -1,7 +1,6 @@
 package dev.hypest.pis.payments
 
 import dev.hypest.pis.common.eventaggregator.DomainEvent
-import java.math.BigDecimal
 import java.util.UUID
 
 data class OrderPaidEvent(
