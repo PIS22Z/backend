@@ -8,7 +8,8 @@ class OrderFinalizedEventTestProvider {
         new OrderFinalizedEvent(
                 map.id ?: UUID.randomUUID(),
                 map.userId ?: UUID.randomUUID(),
-                map.amount ?: BigDecimal.ZERO
+                map.amount ?: BigDecimal.ZERO,
+                map.deliveryDetails ?: new OrderFinalizedEvent.DeliveryDetails("address")
         )
     }
 }

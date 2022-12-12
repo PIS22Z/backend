@@ -1,7 +1,7 @@
 package dev.hypest.pis.orders.domain.draftorder
 
+import dev.hypest.pis.orders.domain.restaurants.OrdersToRestaurantsPort
 import jakarta.inject.Singleton
-import java.math.BigDecimal
 import java.util.UUID
 
 interface FinalizeOrderHandler {
@@ -10,18 +10,13 @@ interface FinalizeOrderHandler {
 
 @Singleton
 class FinalizeOrderHandlerImpl(
-    private val draftOrderRepository: DraftOrderRepository
+    private val draftOrderRepository: DraftOrderRepository,
+    private val restaurantsPort: OrdersToRestaurantsPort
 ) : FinalizeOrderHandler {
 
     override fun finalize(command: FinalizeOrderCommand): UUID {
         val draftOrder = getOrder(command)
-
-        // TODO verify that the order is not already finalized
-        // TODO verify that all products are available (REST call to restaurants)
-        // TODO get order amount (REST call to restaurants)
-        val orderAmount = BigDecimal("16.99")
-
-        draftOrder.finalize(orderAmount)
+        draftOrder.finalize(command, restaurantsPort)
         draftOrderRepository.save(draftOrder)
         return draftOrder.id
     }
@@ -34,5 +29,6 @@ class FinalizeOrderHandlerImpl(
 
 data class FinalizeOrderCommand(
     val orderId: UUID,
-    val userId: UUID
+    val userId: UUID,
+    val deliveryDetails: DeliveryDetails
 )

@@ -6,10 +6,12 @@ import dev.hypest.pis.common.UuidWrapper
 import dev.hypest.pis.orders.CreateOrderRequest
 import dev.hypest.pis.orders.FinalizeOrderRequest
 import dev.hypest.pis.orders.ModifyOrderItemRequest
+import dev.hypest.pis.orders.OrderResponse
 import dev.hypest.pis.orders.OrdersApi
 import dev.hypest.pis.orders.adapter.`in`.mapper.DraftOrderMapper.mapToCreateOrderCommand
 import dev.hypest.pis.orders.adapter.`in`.mapper.DraftOrderMapper.mapToFinalizeOrderCommand
 import dev.hypest.pis.orders.adapter.`in`.mapper.DraftOrderMapper.mapToModifyOrderItemCommand
+import dev.hypest.pis.orders.adapter.`in`.query.OrderQuery
 import dev.hypest.pis.orders.domain.draftorder.AddItemToOrderHandler
 import dev.hypest.pis.orders.domain.draftorder.CreateOrderHandler
 import dev.hypest.pis.orders.domain.draftorder.FinalizeOrderHandler
@@ -28,12 +30,13 @@ class OrdersController(
     private val createOrderHandler: CreateOrderHandler,
     private val finalizeOrderHandler: FinalizeOrderHandler,
     private val addItemToOrderHandler: AddItemToOrderHandler,
-    private val removeItemFromOrderHandler: RemoveItemFromOrderHandler
+    private val removeItemFromOrderHandler: RemoveItemFromOrderHandler,
+    private val orderQuery: OrderQuery
 ) : OrdersApi {
 
-    @Get
-    override fun helloWorld(): HttpResponse<String> {
-        return HttpResponse.ok("Hello World!")
+    @Get("/{orderId}")
+    override fun getOrder(@PathVariable orderId: UUID): HttpResponse<OrderResponse> {
+        return orderQuery.getOrder(orderId).let { HttpResponse.ok(it) }
     }
 
     @Post

@@ -11,5 +11,6 @@ data class OrderToPayEntity(
     val id: UUID,
     val userId: UUID,
     val amount: BigDecimal,
+    val deliveryDetails: DeliveryDetails,
     val isPaid: Boolean
 )

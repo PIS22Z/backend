@@ -8,7 +8,12 @@ import java.util.UUID
 data class OrderFinalizedEvent(
     val orderId: UUID,
     val userId: UUID,
-    val amount: BigDecimal // java.money?
+    val amount: BigDecimal, // java.money?
+    val deliveryDetails: DeliveryDetails
 ) : DomainEvent(
     aggregateId = orderId
-)
+) {
+    data class DeliveryDetails(
+        val address: String
+    )
+}

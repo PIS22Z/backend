@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "3f0f974c-c59a-4bf9-b020-03cc4447e642",
+		"_postman_id": "8c6719d0-872a-4289-9734-1435bbe9c360",
 		"name": "PIS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "17478370"
+		"_exporter_id": "19345317"
 	},
 	"item": [
 		{
@@ -54,7 +54,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userId\": \"{{$guid}}\",\r\n    \"items\": [\r\n        {\r\n            \"productId\": \"{{$guid}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"userId\": \"{{$guid}}\",\r\n    \"deliveryDetails\": {\r\n        \"address\": \"address\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -126,6 +126,48 @@
 								"orders",
 								"{{order_id}}",
 								"remove"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"order_id\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"{{$guid}}\",\r\n    \"items\": [\r\n        {\r\n            \"productId\": \"{{$guid}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/orders/{{order_id}}",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_id}}"
 							]
 						}
 					},
