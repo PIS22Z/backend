@@ -1,4 +1,4 @@
-package dev.hypest.pis.restaurants.infrastructure.db.product
+package dev.hypest.pis.restaurants.infrastructure.db.products
 
 import io.micronaut.data.annotation.Id
 import io.micronaut.data.annotation.MappedEntity

@@ -1,6 +1,6 @@
 package dev.hypest.pis.restaurants
 
-import dev.hypest.pis.restaurants.domain.CreateProductCommand
+import dev.hypest.pis.restaurants.domain.products.CreateProductCommand
 
 class ProductTestProvider {
 

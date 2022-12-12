@@ -6,13 +6,15 @@ import dev.hypest.pis.orders.adapter.`in`.query.OrderQuery
 import dev.hypest.pis.orders.domain.draftorder.DraftOrderNotFoundException
 import dev.hypest.pis.orders.infrastructure.db.draftorder.MicronautDataDraftOrderRepository
 import dev.hypest.pis.payments.infrastructure.db.ordertopay.MicronautDataOrderToPayRepository
+import dev.hypest.pis.restaurants.infrastructure.db.activeorder.MicronautDataActiveOrderRepository
 import jakarta.inject.Singleton
 import java.util.UUID
 
 @Singleton
 class DbOrderQuery(
     private val draftOrderRepository: MicronautDataDraftOrderRepository,
-    private val orderToPayRepository: MicronautDataOrderToPayRepository
+    private val orderToPayRepository: MicronautDataOrderToPayRepository,
+    private val activeOrderRepository: MicronautDataActiveOrderRepository
 ) : OrderQuery {
 
     override fun getOrder(orderId: UUID): OrderResponse {
@@ -20,9 +22,11 @@ class DbOrderQuery(
             draftOrderRepository.findById(orderId).unwrap()
                 ?: throw DraftOrderNotFoundException(orderId)
         val orderToPay = orderToPayRepository.findById(orderId).unwrap()
+        val activeOrder = activeOrderRepository.findById(orderId).unwrap()
 
         return OrderResponse(
             id = orderId,
+            restaurantId = draftOrder.restaurantId,
             userId = draftOrder.userId,
             items = draftOrder.items.map {
                 OrderResponse.OrderItem(
@@ -37,7 +41,8 @@ class DbOrderQuery(
                 )
             },
             isFinalized = draftOrder.isFinalized,
-            isPaid = orderToPay?.isPaid ?: false
+            isPaid = orderToPay?.isPaid ?: false,
+            isConfirmed = activeOrder?.isConfirmed ?: false
         )
     }
 }

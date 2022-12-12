@@ -1,4 +1,4 @@
-package dev.hypest.pis.restaurants.infrastructure.db.product
+package dev.hypest.pis.restaurants.infrastructure.db.products
 
 import io.micronaut.data.mongodb.annotation.MongoRepository
 import io.micronaut.data.repository.CrudRepository

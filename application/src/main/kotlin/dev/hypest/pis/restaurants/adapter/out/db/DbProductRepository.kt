@@ -5,9 +5,9 @@ import dev.hypest.pis.common.logger
 import dev.hypest.pis.common.unwrap
 import dev.hypest.pis.restaurants.adapter.out.mapper.ProductMapper.mapToProduct
 import dev.hypest.pis.restaurants.adapter.out.mapper.ProductMapper.mapToProductEntity
-import dev.hypest.pis.restaurants.domain.Product
-import dev.hypest.pis.restaurants.domain.ProductRepository
-import dev.hypest.pis.restaurants.infrastructure.db.product.MicronautDataProductRepository
+import dev.hypest.pis.restaurants.domain.products.Product
+import dev.hypest.pis.restaurants.domain.products.ProductRepository
+import dev.hypest.pis.restaurants.infrastructure.db.products.MicronautDataProductRepository
 import jakarta.inject.Singleton
 import java.util.UUID
 

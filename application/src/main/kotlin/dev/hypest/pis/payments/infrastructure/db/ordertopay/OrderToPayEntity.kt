@@ -9,7 +9,9 @@ import java.util.UUID
 data class OrderToPayEntity(
     @field:Id
     val id: UUID,
+    val restaurantId: UUID,
     val userId: UUID,
+    val items: List<OrderItem>,
     val amount: BigDecimal,
     val deliveryDetails: DeliveryDetails,
     val isPaid: Boolean

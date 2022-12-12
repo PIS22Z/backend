@@ -19,10 +19,10 @@ class RemoveItemFromOrderHandlerTest extends BaseTest {
 
     def "given existing order, when part of OrderItem is removed, then quantity of order should be updated"() {
         given:
-        def existingOrder = DraftOrder.new(UUID.randomUUID(), [new OrderItem(UUID.randomUUID(), 3)])
+        def existingOrder = DraftOrder.new(UUID.randomUUID(), UUID.randomUUID(), [new OrderItem(UUID.randomUUID(), 3)])
         orderRepository.add(existingOrder)
 
-        def command = DraftOrderTestProvider.getModifyOrderItemCommand(existingOrder.id, existingOrder.items.first().productId,  1)
+        def command = DraftOrderTestProvider.getModifyOrderItemCommand(existingOrder.id, existingOrder.items.first().productId, 1)
 
         when:
         handler.removeItem(command)

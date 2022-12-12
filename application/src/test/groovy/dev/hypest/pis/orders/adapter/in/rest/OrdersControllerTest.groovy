@@ -42,7 +42,7 @@ class OrdersControllerTest extends BaseTest {
         CreateOrderCommand command
 
         when:
-        def request = new CreateOrderRequest(UUID.randomUUID(), [new OrderItem(UUID.randomUUID(), 1)])
+        def request = new CreateOrderRequest(UUID.randomUUID(), UUID.randomUUID(), [new OrderItem(UUID.randomUUID(), 1)])
         def response = client.createOrder(request)
 
         then:
