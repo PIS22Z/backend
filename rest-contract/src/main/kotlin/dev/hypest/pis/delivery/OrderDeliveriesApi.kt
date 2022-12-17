@@ -18,5 +18,8 @@ interface OrderDeliveriesApi {
     fun getOrderDeliveryOffer(@QueryValue courierAddress: String): HttpResponse<OrderDeliveryOfferResponse>
 
     @Put("/{orderDeliveryId}/accept")
-    fun acceptOrderDelivery(@PathVariable orderDeliveryId: UUID, @Body request: AcceptOrderDeliveryRequest): HttpResponse<UuidWrapper>
+    fun acceptOrderDelivery(
+        @PathVariable orderDeliveryId: UUID,
+        @Body request: AcceptOrderDeliveryRequest
+    ): HttpResponse<UuidWrapper>
 }
