@@ -28,4 +28,6 @@ data class OrderDelivery(
     fun accept(courierId: UUID) {
         assignedCourierId = courierId
     }
+
+    // TODO startDelivery, endDelivery
 }

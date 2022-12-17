@@ -27,11 +27,14 @@ class OrderDeliveriesController(
     @Get("/offer")
     override fun getOrderDeliveryOffer(@QueryValue courierAddress: String): HttpResponse<OrderDeliveryOfferResponse> {
         return orderDeliveryOfferQuery.getOrderDeliveryOffer(courierAddress)
-            .let { HttpResponse.ok(it) }
+            ?.let { HttpResponse.ok(it) } ?: HttpResponse.notFound()
     }
 
     @Put("/{orderDeliveryId}/accept")
-    override fun acceptOrderDelivery(@PathVariable orderDeliveryId: UUID, @Body request: AcceptOrderDeliveryRequest): HttpResponse<UuidWrapper> {
+    override fun acceptOrderDelivery(
+        @PathVariable orderDeliveryId: UUID,
+        @Body request: AcceptOrderDeliveryRequest
+    ): HttpResponse<UuidWrapper> {
         val command = mapToAcceptOrderDeliveryCommand(orderDeliveryId, request)
         val id = acceptOrderDeliveryHandler.accept(command)
         return HttpResponse.ok(UuidWrapper(id))

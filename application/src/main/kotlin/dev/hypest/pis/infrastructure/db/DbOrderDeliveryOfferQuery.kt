@@ -10,9 +10,9 @@ class DbOrderDeliveryOfferQuery(
     private val orderDeliveryRepository: MicronautDataOrderDeliveryRepository
 ) : OrderDeliveryOfferQuery {
 
-    override fun getOrderDeliveryOffer(courierAddress: String): OrderDeliveryOfferResponse {
+    override fun getOrderDeliveryOffer(courierAddress: String): OrderDeliveryOfferResponse? {
         val deliveries = orderDeliveryRepository.findAll().filter { it.assignedCourierId == null }
-        val selectedDelivery = deliveries.first()
+        val selectedDelivery = deliveries.firstOrNull() ?: return null
         // TODO tutaj kiedyś będzie bardziej zaawansowany algorytm wyboru najlepszego zamówienia
         // trzeba będzie też nakładać locka na zamówienie, żeby nie było sytuacji, że dwaj kurierzy
         // wybiorą to samo zamówienie
