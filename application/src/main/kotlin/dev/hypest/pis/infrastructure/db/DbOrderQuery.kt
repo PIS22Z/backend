@@ -16,7 +16,7 @@ class DbOrderQuery(
     private val draftOrderRepository: MicronautDataDraftOrderRepository,
     private val orderToPayRepository: MicronautDataOrderToPayRepository,
     private val activeOrderRepository: MicronautDataActiveOrderRepository,
-    private val orderDeliveryRepository: MicronautDataOrderDeliveryRepository
+//    private val orderDeliveryRepository: MicronautDataOrderDeliveryRepository
 ) : OrderQuery {
 
     override fun getOrder(orderId: UUID): OrderResponse {
@@ -25,7 +25,7 @@ class DbOrderQuery(
                 ?: throw DraftOrderNotFoundException(orderId)
         val orderToPay = orderToPayRepository.findById(orderId).unwrap()
         val activeOrder = activeOrderRepository.findById(orderId).unwrap()
-        val orderDelivery = orderDeliveryRepository.findById(orderId).unwrap()
+//        val orderDelivery = orderDeliveryRepository.findById(orderId).unwrap()
 
         return OrderResponse(
             id = orderId,
