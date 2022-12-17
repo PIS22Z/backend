@@ -7,6 +7,7 @@ import dev.hypest.pis.restaurants.OrderReadyToDeliverEvent
 import dev.hypest.pis.restaurants.domain.activeorder.ActiveOrderRepository
 import dev.hypest.pis.restaurants.domain.activeorder.MarkOrderAsReadyToDeliverCommand
 import dev.hypest.pis.restaurants.domain.activeorder.MarkOrderAsReadyToDeliverHandler
+import io.micronaut.test.annotation.MockBean
 import jakarta.inject.Inject
 
 class MarkOrderAsReadyToDeliverHandlerTest extends BaseTest {
@@ -22,7 +23,7 @@ class MarkOrderAsReadyToDeliverHandlerTest extends BaseTest {
 
     def "given existing order, when it is marked as ready to deliver, then it should be saved to db and event should be published"() {
         given:
-        def existingOrder = ActiveOrderTestProvider.getAggregate()
+        def existingOrder = ActiveOrderTestProvider.getAggregate(isConfirmed: true)
         repository.add(existingOrder)
 
         when:
@@ -35,5 +36,10 @@ class MarkOrderAsReadyToDeliverHandlerTest extends BaseTest {
         savedOrder.readyToDeliver
 
         1 * domainEventPublisher.publish(_ as OrderReadyToDeliverEvent)
+    }
+
+    @MockBean(DomainEventPublisher)
+    DomainEventPublisher domainEventPublisher() {
+        Mock(DomainEventPublisher)
     }
 }
