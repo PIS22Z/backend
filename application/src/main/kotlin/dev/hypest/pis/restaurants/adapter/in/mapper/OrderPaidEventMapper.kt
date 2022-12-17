@@ -4,6 +4,7 @@ package dev.hypest.pis.restaurants.adapter.`in`.mapper
 
 import dev.hypest.pis.payments.OrderPaidEvent
 import dev.hypest.pis.restaurants.domain.activeorder.CreateActiveOrderCommand
+import dev.hypest.pis.restaurants.domain.activeorder.DeliveryDetails
 import dev.hypest.pis.restaurants.domain.activeorder.OrderItem
 
 object OrderPaidEventMapper {
@@ -18,7 +19,10 @@ object OrderPaidEventMapper {
                     it.productId,
                     it.quantity
                 )
-            }
+            },
+            deliveryDetails = DeliveryDetails(
+                address = event.deliveryDetails.address
+            )
         )
     }
 }

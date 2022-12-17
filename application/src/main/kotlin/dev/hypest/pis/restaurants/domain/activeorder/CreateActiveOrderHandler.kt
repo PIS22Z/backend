@@ -17,7 +17,8 @@ class CreateActiveOrderHandlerImpl(
             id = command.orderId,
             restaurantId = command.restaurantId,
             userId = command.userId,
-            items = command.items
+            items = command.items,
+            deliveryDetails = command.deliveryDetails
         )
         activeOrderRepository.add(activeOrder)
         return activeOrder.id
@@ -28,5 +29,6 @@ data class CreateActiveOrderCommand(
     val orderId: UUID,
     val restaurantId: UUID,
     val userId: UUID,
-    val items: List<OrderItem>
+    val items: List<OrderItem>,
+    val deliveryDetails: DeliveryDetails
 )

@@ -8,12 +8,15 @@ import dev.hypest.pis.orders.OrderFinalizedEvent
 import dev.hypest.pis.orders.adapter.out.event.OrderFinalizedEventProducer
 import dev.hypest.pis.payments.OrderPaidEvent
 import dev.hypest.pis.payments.adapter.out.event.OrderPaidEventProducer
+import dev.hypest.pis.restaurants.OrderReadyToDeliverEvent
+import dev.hypest.pis.restaurants.adapter.out.event.OrderReadyToDeliverEventProducer
 import io.micronaut.context.annotation.Bean
 
 @Bean
 class RabbitmqDomainEventPublisher(
     private val orderFinalizedEventProducer: OrderFinalizedEventProducer,
-    private val orderPaidEventProducer: OrderPaidEventProducer
+    private val orderPaidEventProducer: OrderPaidEventProducer,
+    private val orderReadyToDeliverEventProducer: OrderReadyToDeliverEventProducer
 ) : DomainEventPublisher {
 
     private val log by logger()
@@ -33,6 +36,7 @@ class RabbitmqDomainEventPublisher(
         return when (event) {
             is OrderFinalizedEvent -> orderFinalizedEventProducer
             is OrderPaidEvent -> orderPaidEventProducer
+            is OrderReadyToDeliverEvent -> orderReadyToDeliverEventProducer
             else -> null
         }
     }
