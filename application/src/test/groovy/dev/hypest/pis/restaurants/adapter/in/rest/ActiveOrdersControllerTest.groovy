@@ -27,6 +27,7 @@ class ActiveOrdersControllerTest extends BaseTest {
         1 * markOrderAsReadyToDeliverHandler.markAsReady(_ as MarkOrderAsReadyToDeliverCommand) >> { args ->
             command = args[0] as MarkOrderAsReadyToDeliverCommand
             command.orderId == orderId
+            orderId
         }
 
         command != null
