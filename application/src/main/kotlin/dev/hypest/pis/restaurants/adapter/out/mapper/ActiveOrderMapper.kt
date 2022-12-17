@@ -1,4 +1,4 @@
-package dev.hypest.pis.restaurants.infrastructure.db.mapper
+package dev.hypest.pis.restaurants.adapter.out.mapper
 
 import dev.hypest.pis.restaurants.domain.activeorder.ActiveOrder
 import dev.hypest.pis.restaurants.domain.activeorder.DeliveryDetails

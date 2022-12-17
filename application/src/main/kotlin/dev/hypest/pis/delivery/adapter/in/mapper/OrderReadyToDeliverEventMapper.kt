@@ -1,3 +1,5 @@
+@file:Suppress("InvalidPackageDeclaration")
+
 package dev.hypest.pis.delivery.adapter.`in`.mapper
 
 import dev.hypest.pis.delivery.domain.orderdelivery.CreateOrderDeliveryCommand

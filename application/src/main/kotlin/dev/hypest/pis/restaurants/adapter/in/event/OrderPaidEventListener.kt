@@ -3,6 +3,7 @@
 package dev.hypest.pis.restaurants.adapter.`in`.event
 
 import dev.hypest.pis.common.logger
+import dev.hypest.pis.configuration.RabbitmqConfig.Companion.ORDER_PAID
 import dev.hypest.pis.payments.OrderPaidEvent
 import dev.hypest.pis.restaurants.adapter.`in`.mapper.OrderPaidEventMapper.mapToCreateActiveOrderCommand
 import dev.hypest.pis.restaurants.domain.activeorder.CreateActiveOrderHandler
@@ -16,7 +17,7 @@ class OrderPaidEventListener(
 
     private val log by logger()
 
-    @Queue("order-paid")
+    @Queue(ORDER_PAID)
     fun receive(event: OrderPaidEvent) {
         log.info("Received event: $event")
 

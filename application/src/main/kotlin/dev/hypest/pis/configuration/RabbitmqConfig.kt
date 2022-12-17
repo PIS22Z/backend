@@ -13,6 +13,7 @@ class RabbitmqConfig : ChannelInitializer() {
         channel.exchangeDeclare(EXCHANGE, BuiltinExchangeType.DIRECT) // TODO direct?
         channel.queueDeclare(ORDER_FINALIZED, false, false, false, emptyMap())
         channel.queueDeclare(ORDER_PAID, false, false, false, emptyMap())
+        channel.queueDeclare(ORDER_READY, false, false, false, emptyMap())
 
         // queues bindings
         channel.queueBind(ORDER_FINALIZED, EXCHANGE, ORDER_FINALIZED)
@@ -23,5 +24,6 @@ class RabbitmqConfig : ChannelInitializer() {
         const val EXCHANGE = "pis"
         const val ORDER_FINALIZED = "order-finalized"
         const val ORDER_PAID = "order-paid"
+        const val ORDER_READY = "order-ready"
     }
 }
