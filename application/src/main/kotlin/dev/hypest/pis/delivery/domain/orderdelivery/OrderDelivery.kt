@@ -6,7 +6,8 @@ import java.util.UUID
 data class OrderDelivery(
     val id: UUID,
     val restaurantId: UUID,
-    val deliveryDetails: DeliveryDetails
+    val deliveryDetails: DeliveryDetails,
+    var assignedCourierId: UUID? = null,
 ) : AggregateRoot() {
 
     companion object {
@@ -22,5 +23,9 @@ data class OrderDelivery(
                 deliveryDetails = deliveryDetails
             )
         }
+    }
+
+    fun accept(courierId: UUID) {
+        assignedCourierId = courierId
     }
 }
