@@ -50,7 +50,8 @@ data class OrderToPay(
                 orderId = id,
                 restaurantId = restaurantId,
                 userId = userId,
-                items = items.map { OrderPaidEvent.OrderItem(it.productId, it.quantity) }
+                items = items.map { OrderPaidEvent.OrderItem(it.productId, it.quantity) },
+                deliveryDetails = OrderPaidEvent.DeliveryDetails(deliveryDetails.address)
             )
         )
     }

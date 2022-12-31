@@ -12,7 +12,8 @@ data class OrderResponse(
     val deliveryDetails: DeliveryDetails?,
     val isFinalized: Boolean,
     val isPaid: Boolean,
-    val isConfirmed: Boolean
+    val isConfirmed: Boolean,
+    val isReadyToDeliver: Boolean
 ) {
     data class OrderItem(
         val productId: UUID,

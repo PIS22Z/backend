@@ -11,6 +11,9 @@ class OrderPaidEventTestProvider {
                 map.restaurantId ?: UUID.randomUUID(),
                 map.userId ?: UUID.randomUUID(),
                 map.items ?: [new OrderPaidEvent.OrderItem(UUID.randomUUID(), 1)],
+                map.deliveryDetails ?: new OrderPaidEvent.DeliveryDetails(
+                        map.address ?: "Test address"
+                )
         )
     }
 }

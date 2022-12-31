@@ -6,8 +6,8 @@ import dev.hypest.pis.common.unwrap
 import dev.hypest.pis.restaurants.domain.activeorder.ActiveOrder
 import dev.hypest.pis.restaurants.domain.activeorder.ActiveOrderRepository
 import dev.hypest.pis.restaurants.infrastructure.db.activeorder.MicronautDataActiveOrderRepository
-import dev.hypest.pis.restaurants.infrastructure.db.mapper.ActiveOrderMapper.mapToActiveOrder
-import dev.hypest.pis.restaurants.infrastructure.db.mapper.ActiveOrderMapper.mapToActiveOrderEntity
+import dev.hypest.pis.restaurants.adapter.out.mapper.ActiveOrderMapper.mapToActiveOrder
+import dev.hypest.pis.restaurants.adapter.out.mapper.ActiveOrderMapper.mapToActiveOrderEntity
 import jakarta.inject.Singleton
 import java.util.UUID
 

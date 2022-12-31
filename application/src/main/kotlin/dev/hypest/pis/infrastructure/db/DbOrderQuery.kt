@@ -1,6 +1,7 @@
 package dev.hypest.pis.infrastructure.db
 
 import dev.hypest.pis.common.unwrap
+import dev.hypest.pis.delivery.infrastructure.db.orderdelivery.MicronautDataOrderDeliveryRepository
 import dev.hypest.pis.orders.OrderResponse
 import dev.hypest.pis.orders.adapter.`in`.query.OrderQuery
 import dev.hypest.pis.orders.domain.draftorder.DraftOrderNotFoundException
@@ -14,7 +15,8 @@ import java.util.UUID
 class DbOrderQuery(
     private val draftOrderRepository: MicronautDataDraftOrderRepository,
     private val orderToPayRepository: MicronautDataOrderToPayRepository,
-    private val activeOrderRepository: MicronautDataActiveOrderRepository
+    private val activeOrderRepository: MicronautDataActiveOrderRepository,
+//    private val orderDeliveryRepository: MicronautDataOrderDeliveryRepository
 ) : OrderQuery {
 
     override fun getOrder(orderId: UUID): OrderResponse {
@@ -23,6 +25,7 @@ class DbOrderQuery(
                 ?: throw DraftOrderNotFoundException(orderId)
         val orderToPay = orderToPayRepository.findById(orderId).unwrap()
         val activeOrder = activeOrderRepository.findById(orderId).unwrap()
+//        val orderDelivery = orderDeliveryRepository.findById(orderId).unwrap()
 
         return OrderResponse(
             id = orderId,
@@ -42,7 +45,8 @@ class DbOrderQuery(
             },
             isFinalized = draftOrder.isFinalized,
             isPaid = orderToPay?.isPaid ?: false,
-            isConfirmed = activeOrder?.isConfirmed ?: false
+            isConfirmed = activeOrder?.isConfirmed ?: false,
+            isReadyToDeliver = activeOrder?.isReadyToDeliver ?: false
         )
     }
 }

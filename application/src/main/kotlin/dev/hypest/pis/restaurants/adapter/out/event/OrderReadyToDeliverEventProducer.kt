@@ -1,15 +1,15 @@
-package dev.hypest.pis.payments.adapter.out.event
+package dev.hypest.pis.restaurants.adapter.out.event
 
 import dev.hypest.pis.common.eventaggregator.DomainEvent
 import dev.hypest.pis.common.eventaggregator.EventProducer
-import dev.hypest.pis.configuration.RabbitmqConfig.Companion.ORDER_PAID
+import dev.hypest.pis.configuration.RabbitmqConfig.Companion.ORDER_READY
 import io.micronaut.rabbitmq.annotation.Binding
 import io.micronaut.rabbitmq.annotation.RabbitClient
 
 @RabbitClient
-interface OrderPaidEventProducer : EventProducer {
+interface OrderReadyToDeliverEventProducer : EventProducer {
 
-    @Binding(ORDER_PAID)
+    @Binding(ORDER_READY)
     override fun produce(event: DomainEvent)
 
 }
