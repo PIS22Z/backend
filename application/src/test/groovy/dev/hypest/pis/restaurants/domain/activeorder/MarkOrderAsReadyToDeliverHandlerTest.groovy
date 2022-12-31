@@ -1,4 +1,4 @@
-package dev.hypest.pis.restaurants.domain
+package dev.hypest.pis.restaurants.domain.activeorder
 
 import dev.hypest.pis.BaseTest
 import dev.hypest.pis.common.eventaggregator.DomainEventPublisher
