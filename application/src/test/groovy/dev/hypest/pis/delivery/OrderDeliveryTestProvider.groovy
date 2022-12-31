@@ -20,7 +20,7 @@ class OrderDeliveryTestProvider {
     }
 
     static StartOrderDeliveryCommand getStartOrderDeliveryCommand(Map map = [:]) {
-        return new AcceptOrderDeliveryCommand(
+        return new StartOrderDeliveryCommand(
                 map.orderDeliveryId ?: UUID.randomUUID()
         )
     }

@@ -17,7 +17,7 @@ class DbOrderDeliveryOfferQueryTest extends BaseTest {
 
     def "given active order delivery without assigned courier, when offer is retrieved, then it should return delivery"() {
         given:
-        def delivery = new OrderDeliveryEntity(UUID.randomUUID(), UUID.randomUUID(), new DeliveryDetails("deliveryAddress"), null)
+        def delivery = new OrderDeliveryEntity(UUID.randomUUID(), UUID.randomUUID(), new DeliveryDetails("deliveryAddress"), null, false)
         orderDeliveryRepository.save(delivery)
 
         when:
@@ -30,7 +30,7 @@ class DbOrderDeliveryOfferQueryTest extends BaseTest {
 
     def "given active order delivery with assigned courier, when offer is retrieved, then should return null"() {
         given:
-        def delivery = new OrderDeliveryEntity(UUID.randomUUID(), UUID.randomUUID(), new DeliveryDetails("deliveryAddress"), UUID.randomUUID())
+        def delivery = new OrderDeliveryEntity(UUID.randomUUID(), UUID.randomUUID(), new DeliveryDetails("deliveryAddress"), UUID.randomUUID(), false)
         orderDeliveryRepository.save(delivery)
 
         when:

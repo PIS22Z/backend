@@ -18,6 +18,7 @@ class StartOrderDeliveryHandlerTest extends BaseTest {
     def "given existing delivery, when starting it, then it should be started & saved in db"() {
         given:
         def orderDelivery = OrderDeliveryTestProvider.getAggregate()
+        orderDelivery.assignedCourierId = UUID.randomUUID()
         repository.add(orderDelivery)
 
         def command = OrderDeliveryTestProvider.getStartOrderDeliveryCommand(orderDeliveryId: orderDelivery.id)
