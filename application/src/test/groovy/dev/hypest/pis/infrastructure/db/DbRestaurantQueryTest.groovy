@@ -43,40 +43,6 @@ class DbRestaurantQueryTest extends BaseTest {
         restaurant.number == existingRestaurant.number
     }
 
-    def "given restaurant with many products, when restaurants are queried, then it should return only first products"() {
-        def restaurantId = UUID.randomUUID()
-        def existingRestaurant = new RestaurantEntity(
-                restaurantId,
-                "name",
-                "url",
-                "description",
-                ([{ getProductEntity() }] * 10)*.call(),
-                "city",
-                "street",
-                "number")
-        restaurantRepository.save(existingRestaurant)
-
-        when:
-        def restaurant = restaurantQuery.getRestaurants()
-
-        then:
-        restaurant.size() == 1
-        restaurant[0].products.size() == DbRestaurantQuery.PRODUCTS_COUNT_FIND_ALL
-        restaurant[0].products[0..DbRestaurantQuery.PRODUCTS_COUNT_FIND_ALL - 1].eachWithIndex { it, index -> restaurant[0].products[index].id == it.id }
-    }
-
-    def "given many restaurants, when restaurants are queried, then it should return all restaurants"() {
-        def existingRestaurants = ([{ getRestaurantEntity() }] * 10)*.call()
-        restaurantRepository.saveAll(existingRestaurants)
-
-        when:
-        def restaurants = restaurantQuery.getRestaurants()
-
-        then:
-        restaurants.size() == existingRestaurants.size()
-        existingRestaurants.eachWithIndex { it, index -> restaurants[index].id == it.id }
-    }
-
     def "given existing restaurant, when restaurant is queried, then it should return restaurant with all products"() {
         def restaurantId = UUID.randomUUID()
         def existingRestaurant = new RestaurantEntity(restaurantId,

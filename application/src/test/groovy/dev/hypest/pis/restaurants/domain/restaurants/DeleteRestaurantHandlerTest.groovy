@@ -4,21 +4,21 @@ import dev.hypest.pis.BaseTest
 import dev.hypest.pis.restaurants.RestaurantTestProvider
 import jakarta.inject.Inject
 
-class DeleteRestaurantHandlerTest extends BaseTest {
+class RemoveRestaurantHandlerTest extends BaseTest {
 
     @Inject
-    private DeleteRestaurantHandler deleteRestaurantHandler
+    private RemoveRestaurantHandler removeRestaurantHandler
 
     @Inject
     private RestaurantRepository restaurantRepository
 
-    def "given existing restaurant, when it is deleted, then it should be deleted from db"() {
+    def "given existing restaurant, when it is removed, then it should be removed from db"() {
         given:
         def existingRestaurant = RestaurantTestProvider.getAggregate()
         restaurantRepository.add(existingRestaurant)
 
         when:
-        deleteRestaurantHandler.delete(existingRestaurant.id)
+        removeRestaurantHandler.remove(existingRestaurant.id)
 
         then:
         restaurantRepository.load(existingRestaurant.id) == null

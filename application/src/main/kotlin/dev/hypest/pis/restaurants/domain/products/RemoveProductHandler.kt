@@ -3,15 +3,15 @@ package dev.hypest.pis.restaurants.domain.products
 import jakarta.inject.Singleton
 import java.util.UUID
 
-interface DeleteProductHandler {
-    fun delete(productId: UUID)
+interface RemoveProductHandler {
+    fun remove(productId: UUID)
 }
 
 @Singleton
-class DeleteProductHandlerImpl(
+class RemoveProductHandlerImpl(
     private val productRepository: ProductRepository
-) : DeleteProductHandler {
-    override fun delete(productId: UUID) {
+) : RemoveProductHandler {
+    override fun remove(productId: UUID) {
         val product = productRepository.load(productId) ?: throw ProductNotFoundException(productId)
         productRepository.remove(product.id)
     }

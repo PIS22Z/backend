@@ -281,7 +281,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete Restaurant",
+					"name": "Remove Restaurant",
 					"event": [
 						{
 							"listen": "test",
@@ -429,7 +429,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete Product",
+					"name": "Remove Product",
 					"event": [
 						{
 							"listen": "test",

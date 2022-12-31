@@ -6,5 +6,5 @@ interface RestaurantRepository {
     fun add(restaurant: Restaurant)
     fun load(id: UUID): Restaurant?
     fun save(restaurant: Restaurant)
-    fun delete(id: UUID)
+    fun remove(id: UUID)
 }

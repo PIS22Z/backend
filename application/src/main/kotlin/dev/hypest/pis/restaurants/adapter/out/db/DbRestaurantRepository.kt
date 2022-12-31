@@ -28,13 +28,13 @@ class DbRestaurantRepository(
 
     override fun save(restaurant: Restaurant) {
         repository.update(RestaurantMapper.mapToRestaurantEntity(restaurant))
-        log.info("DraftOrder with ID=${restaurant.id} saved")
+        log.info("Restaurant with ID=${restaurant.id} saved")
         publishAllDomainEvents(restaurant)
     }
 
-    override fun delete(id: UUID) {
+    override fun remove(id: UUID) {
         repository.deleteById(id)
-        log.info("Restaurant with ID=$id deleted")
+        log.info("Restaurant with ID=$id removed")
     }
 
     private fun publishAllDomainEvents(restaurant: Restaurant) =

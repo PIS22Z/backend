@@ -20,7 +20,7 @@ class DbRestaurantQuery(
                 name = restaurant.name,
                 description = restaurant.description,
                 logoUrl = restaurant.logoUrl,
-                products = restaurant.products.take(PRODUCTS_COUNT_FIND_ALL).map { product ->
+                products = restaurant.products.map { product ->
                     ProductResponse(
                         id = product.id,
                         name = product.name,
@@ -49,9 +49,5 @@ class DbRestaurantQuery(
             street = restaurant.street,
             number = restaurant.number,
         )
-    }
-
-    companion object {
-        const val PRODUCTS_COUNT_FIND_ALL = 3
     }
 }

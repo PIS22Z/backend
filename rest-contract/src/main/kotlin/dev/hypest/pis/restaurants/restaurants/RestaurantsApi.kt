@@ -27,7 +27,7 @@ interface RestaurantsApi {
     fun createRestaurant(@Body restaurant: CreateRestaurantRequest): HttpResponse<UuidWrapper>
 
     @Delete("/{restaurantId}")
-    fun deleteRestaurant(@PathVariable restaurantId: UUID): HttpResponse<Unit>
+    fun removeRestaurant(@PathVariable restaurantId: UUID): HttpResponse<Unit>
 
     @Put("/{restaurantId}")
     fun updateRestaurant(
@@ -58,7 +58,7 @@ interface RestaurantsApi {
     ): HttpResponse<UuidWrapper>
 
     @Delete("/{restaurantId}/products/{productId}")
-    fun deleteProductFromRestaurant(
+    fun removeProductFromRestaurant(
         @PathVariable restaurantId: UUID,
         @PathVariable productId: UUID
     ): HttpResponse<Unit>

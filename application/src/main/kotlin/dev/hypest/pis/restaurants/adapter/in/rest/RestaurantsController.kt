@@ -10,10 +10,10 @@ import dev.hypest.pis.restaurants.adapter.`in`.mapper.RestaurantMapper.mapToUpda
 import dev.hypest.pis.restaurants.adapter.`in`.query.ProductQuery
 import dev.hypest.pis.restaurants.adapter.`in`.query.RestaurantQuery
 import dev.hypest.pis.restaurants.domain.products.CreateProductHandler
-import dev.hypest.pis.restaurants.domain.products.DeleteProductHandler
+import dev.hypest.pis.restaurants.domain.products.RemoveProductHandler
 import dev.hypest.pis.restaurants.domain.products.UpdateProductHandler
 import dev.hypest.pis.restaurants.domain.restaurants.CreateRestaurantHandler
-import dev.hypest.pis.restaurants.domain.restaurants.DeleteRestaurantHandler
+import dev.hypest.pis.restaurants.domain.restaurants.RemoveRestaurantHandler
 import dev.hypest.pis.restaurants.domain.restaurants.UpdateRestaurantHandler
 import dev.hypest.pis.restaurants.product.CreateProductRequest
 import dev.hypest.pis.restaurants.product.ProductResponse
@@ -23,7 +23,13 @@ import dev.hypest.pis.restaurants.restaurants.RestaurantResponse
 import dev.hypest.pis.restaurants.restaurants.RestaurantsApi
 import dev.hypest.pis.restaurants.restaurants.UpdateRestaurantRequest
 import io.micronaut.http.HttpResponse
+import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Delete
+import io.micronaut.http.annotation.Get
+import io.micronaut.http.annotation.PathVariable
+import io.micronaut.http.annotation.Post
+import io.micronaut.http.annotation.Put
 import java.util.UUID
 
 @Suppress("LongParameterList")
@@ -31,60 +37,83 @@ import java.util.UUID
 class RestaurantsController(
     private val createRestaurantHandler: CreateRestaurantHandler,
     private val updateRestaurantHandler: UpdateRestaurantHandler,
-    private val deleteRestaurantHandler: DeleteRestaurantHandler,
+    private val removeRestaurantHandler: RemoveRestaurantHandler,
     private val createProductHandler: CreateProductHandler,
     private val updateProductHandler: UpdateProductHandler,
-    private val deleteProductHandler: DeleteProductHandler,
+    private val removeProductHandler: RemoveProductHandler,
     private val restaurantQuery: RestaurantQuery,
     private val productQuery: ProductQuery
 ) : RestaurantsApi {
+
+    @Get
     override fun getAllRestaurants(): HttpResponse<List<RestaurantResponse>> =
         restaurantQuery.getRestaurants().let { HttpResponse.ok(it) }
 
-    override fun getRestaurantById(restaurantId: UUID): HttpResponse<RestaurantResponse> =
+    @Get("/{restaurantId}")
+    override fun getRestaurantById(@PathVariable restaurantId: UUID): HttpResponse<RestaurantResponse> =
         restaurantQuery.getRestaurant(restaurantId).let { HttpResponse.ok(it) }
 
-    override fun createRestaurant(restaurant: CreateRestaurantRequest): HttpResponse<UuidWrapper> {
+    @Post
+    override fun createRestaurant(@Body restaurant: CreateRestaurantRequest): HttpResponse<UuidWrapper> {
         val command = mapToCreateRestaurantCommand(restaurant)
         val id = createRestaurantHandler.create(command)
         return HttpResponse.created(UuidWrapper(id))
     }
 
-    override fun deleteRestaurant(restaurantId: UUID): HttpResponse<Unit> {
-        deleteRestaurantHandler.delete(restaurantId)
+    @Delete("/{restaurantId}")
+    override fun removeRestaurant(@PathVariable restaurantId: UUID): HttpResponse<Unit> {
+        removeRestaurantHandler.remove(restaurantId)
         return HttpResponse.ok()
     }
 
-    override fun updateRestaurant(restaurantId: UUID, request: UpdateRestaurantRequest): HttpResponse<UuidWrapper> {
+    @Put("/{restaurantId}")
+    override fun updateRestaurant(
+        @PathVariable restaurantId: UUID,
+        @Body request: UpdateRestaurantRequest
+    ): HttpResponse<UuidWrapper> {
         val command = mapToUpdateRestaurantCommand(restaurantId, request)
         val id = updateRestaurantHandler.update(command)
         return HttpResponse.ok(UuidWrapper(id))
     }
 
-    override fun addProductToRestaurant(restaurantId: UUID, request: CreateProductRequest): HttpResponse<UuidWrapper> {
+    @Post("/{restaurantId}/products")
+    override fun addProductToRestaurant(
+        @PathVariable restaurantId: UUID,
+        @Body request: CreateProductRequest
+    ): HttpResponse<UuidWrapper> {
         val command = mapToCreateProductCommand(restaurantId, request)
         val id = createProductHandler.create(command)
         return HttpResponse.created(UuidWrapper(id))
     }
 
-    override fun getProductsFromRestaurant(restaurantId: UUID): HttpResponse<List<ProductResponse>> =
+    @Get("/{restaurantId}/products")
+    override fun getProductsFromRestaurant(@PathVariable restaurantId: UUID): HttpResponse<List<ProductResponse>> =
         productQuery.getProductsFromRestaurant(restaurantId).let { HttpResponse.ok(it) }
 
-    override fun getProductFromRestaurant(restaurantId: UUID, productId: UUID): HttpResponse<ProductResponse> =
+    @Get("/{restaurantId}/products/{productId}")
+    override fun getProductFromRestaurant(
+        @PathVariable restaurantId: UUID,
+        @PathVariable productId: UUID
+    ): HttpResponse<ProductResponse> =
         productQuery.getProduct(restaurantId, productId).let { HttpResponse.ok(it) }
 
+    @Put("/{restaurantId}/products/{productId}")
     override fun updateProductFromRestaurant(
-        restaurantId: UUID,
-        productId: UUID,
-        request: UpdateProductRequest
+        @PathVariable restaurantId: UUID,
+        @PathVariable productId: UUID,
+        @Body request: UpdateProductRequest
     ): HttpResponse<UuidWrapper> {
         val command = mapToUpdateProductCommand(productId, request)
         val id = updateProductHandler.update(command)
         return HttpResponse.ok(UuidWrapper(id))
     }
 
-    override fun deleteProductFromRestaurant(restaurantId: UUID, productId: UUID): HttpResponse<Unit> {
-        deleteProductHandler.delete(productId)
+    @Delete("/{restaurantId}/products/{productId}")
+    override fun removeProductFromRestaurant(
+        @PathVariable restaurantId: UUID,
+        @PathVariable productId: UUID
+    ): HttpResponse<Unit> {
+        removeProductHandler.remove(productId)
         return HttpResponse.ok()
     }
 }

@@ -25,7 +25,7 @@ class RestaurantControllerTest extends BaseTest {
     CreateRestaurantHandler getRestaurantHandler
 
     @Inject
-    DeleteRestaurantHandler deleteRestaurantHandler
+    RemoveRestaurantHandler removeRestaurantHandler
 
     @Inject
     CreateProductHandler createProductHandler
@@ -34,7 +34,7 @@ class RestaurantControllerTest extends BaseTest {
     UpdateProductHandler updateProductHandler
 
     @Inject
-    DeleteProductHandler deleteProductHandler
+    RemoveProductHandler removeProductHandler
 
     @Inject
     RestaurantQuery restaurantQuery
@@ -107,15 +107,15 @@ class RestaurantControllerTest extends BaseTest {
         response.body().id != null
     }
 
-    def "when delete is performed against /restaurants/{restaurantId}"() {
+    def "when remove is performed against /restaurants/{restaurantId}"() {
         given:
         UUID restaurantId = UUID.randomUUID()
 
         when:
-        def response = client.deleteRestaurant(restaurantId)
+        def response = client.removeRestaurant(restaurantId)
 
         then:
-        1 * deleteRestaurantHandler.delete(_ as UUID) >> { List<UUID> args ->
+        1 * removeRestaurantHandler.remove(_ as UUID) >> { List<UUID> args ->
             restaurantId == args[0]
         }
 
@@ -181,15 +181,15 @@ class RestaurantControllerTest extends BaseTest {
         response.body().id != null
     }
 
-    def "when delete is performed against /restaurants/{restaurant}/products"() {
+    def "when remove is performed against /restaurants/{restaurant}/products"() {
         given:
         def productId = UUID.randomUUID()
 
         when:
-        def response = client.deleteProductFromRestaurant(UUID.randomUUID(), productId)
+        def response = client.removeProductFromRestaurant(UUID.randomUUID(), productId)
 
         then:
-        1 * deleteProductHandler.delete(_ as UUID) >> { List<UUID> args ->
+        1 * removeProductHandler.remove(_ as UUID) >> { List<UUID> args ->
             args[0] == productId
         }
 
@@ -207,9 +207,9 @@ class RestaurantControllerTest extends BaseTest {
         Mock(UpdateRestaurantHandler)
     }
 
-    @MockBean(DeleteRestaurantHandlerImpl)
-    DeleteRestaurantHandler deleteRestaurantHandler() {
-        Mock(DeleteRestaurantHandler)
+    @MockBean(RemoveRestaurantHandlerImpl)
+    RemoveRestaurantHandler removeRestaurantHandler() {
+        Mock(RemoveRestaurantHandler)
     }
 
     @MockBean(CreateProductHandlerImpl)
@@ -222,9 +222,9 @@ class RestaurantControllerTest extends BaseTest {
         Mock(UpdateProductHandler)
     }
 
-    @MockBean(DeleteProductHandlerImpl)
-    DeleteProductHandler deleteProductHandler() {
-        Mock(DeleteProductHandler)
+    @MockBean(RemoveProductHandlerImpl)
+    RemoveProductHandler removeProductHandler() {
+        Mock(RemoveProductHandler)
     }
 
     @MockBean(DbRestaurantQuery)
