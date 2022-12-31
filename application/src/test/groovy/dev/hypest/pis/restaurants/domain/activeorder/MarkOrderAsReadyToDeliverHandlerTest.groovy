@@ -4,9 +4,6 @@ import dev.hypest.pis.BaseTest
 import dev.hypest.pis.common.eventaggregator.DomainEventPublisher
 import dev.hypest.pis.restaurants.ActiveOrderTestProvider
 import dev.hypest.pis.restaurants.OrderReadyToDeliverEvent
-import dev.hypest.pis.restaurants.domain.activeorder.ActiveOrderRepository
-import dev.hypest.pis.restaurants.domain.activeorder.MarkOrderAsReadyToDeliverCommand
-import dev.hypest.pis.restaurants.domain.activeorder.MarkOrderAsReadyToDeliverHandler
 import io.micronaut.test.annotation.MockBean
 import jakarta.inject.Inject
 

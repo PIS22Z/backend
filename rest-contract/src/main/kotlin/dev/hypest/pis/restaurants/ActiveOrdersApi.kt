@@ -2,7 +2,6 @@ package dev.hypest.pis.restaurants
 
 import dev.hypest.pis.common.UuidWrapper
 import io.micronaut.http.HttpResponse
-import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.PathVariable
 import io.micronaut.http.annotation.Put
