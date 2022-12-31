@@ -8,6 +8,7 @@ data class OrderDelivery(
     val restaurantId: UUID,
     val deliveryDetails: DeliveryDetails,
     var assignedCourierId: UUID? = null,
+    var isBeingDelivered: Boolean = false
 ) : AggregateRoot() {
 
     companion object {
@@ -29,5 +30,11 @@ data class OrderDelivery(
         assignedCourierId = courierId
     }
 
-    // TODO startDelivery, endDelivery
+    fun start() {
+        check(assignedCourierId != null) { "Order is not accepted" }
+
+        isBeingDelivered = true
+    }
+
+    // TODO endDelivery
 }

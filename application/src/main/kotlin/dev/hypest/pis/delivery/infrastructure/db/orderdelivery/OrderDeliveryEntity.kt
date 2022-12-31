@@ -10,5 +10,6 @@ data class OrderDeliveryEntity(
     val id: UUID,
     val restaurantId: UUID,
     val deliveryDetails: DeliveryDetails,
-    val assignedCourierId: UUID?
+    val assignedCourierId: UUID?,
+    val isBeingDelivered: Boolean
 )
