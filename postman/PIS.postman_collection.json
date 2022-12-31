@@ -1,380 +1,11 @@
 {
 	"info": {
-		"_postman_id": "b30fc0d6-9497-4ed3-b22e-b84effee4a05",
+		"_postman_id": "3d528427-5637-4dcf-82dd-aea310b3def9",
 		"name": "PIS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "19345317"
 	},
 	"item": [
-		{
-			"name": "Orders",
-			"item": [
-				{
-					"name": "Create Draft Order",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"var jsonData = pm.response.json();\r",
-									"pm.collectionVariables.set(\"order_id\", jsonData.id)"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userId\": \"{{$guid}}\",\r\n    \"restaurantId\": \"{{$guid}}\",\r\n    \"items\": [\r\n        {\r\n            \"productId\": \"{{$guid}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{monolith_url}}/orders",
-							"host": [
-								"{{monolith_url}}"
-							],
-							"path": [
-								"orders"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add item to Draft Order",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"productId\": \"{{$guid}}\",\r\n    \"quantity\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{monolith_url}}/orders/{{order_id}}/add",
-							"host": [
-								"{{monolith_url}}"
-							],
-							"path": [
-								"orders",
-								"{{order_id}}",
-								"add"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Remove item from Draft Order",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"productId\": \"{{$guid}}\",\r\n    \"quantity\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{monolith_url}}/orders/{{order_id}}/remove",
-							"host": [
-								"{{monolith_url}}"
-							],
-							"path": [
-								"orders",
-								"{{order_id}}",
-								"remove"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Finalize Draft Order",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userId\": \"{{$guid}}\",\r\n    \"deliveryDetails\": {\r\n        \"address\": \"address\"\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{monolith_url}}/orders/{{order_id}}/finalize",
-							"host": [
-								"{{monolith_url}}"
-							],
-							"path": [
-								"orders",
-								"{{order_id}}",
-								"finalize"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Order",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userId\": \"{{$guid}}\",\r\n    \"items\": [\r\n        {\r\n            \"productId\": \"{{$guid}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{monolith_url}}/orders/{{order_id}}",
-							"host": [
-								"{{monolith_url}}"
-							],
-							"path": [
-								"orders",
-								"{{order_id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Pay Order",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"orderId\": \"{{order_id}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{monolith_url}}/payments",
-							"host": [
-								"{{monolith_url}}"
-							],
-							"path": [
-								"payments"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Mark Order as read to deliver",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{monolith_url}}/orders/{{order_id}}/ready",
-							"host": [
-								"{{monolith_url}}"
-							],
-							"path": [
-								"orders",
-								"{{order_id}}",
-								"ready"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Order Delivery offer",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"userId\": \"{{$guid}}\",\r\n    \"items\": [\r\n        {\r\n            \"productId\": \"{{$guid}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{monolith_url}}/deliveries/offer?courierAddress=Puławska 113a, 02-707 Warszawa",
-							"host": [
-								"{{monolith_url}}"
-							],
-							"path": [
-								"deliveries",
-								"offer"
-							],
-							"query": [
-								{
-									"key": "courierAddress",
-									"value": "Puławska 113a, 02-707 Warszawa"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Accept Order Delivery",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"courierId\": \"{{$guid}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{monolith_url}}/deliveries/{{order_id}}/accept",
-							"host": [
-								"{{monolith_url}}"
-							],
-							"path": [
-								"deliveries",
-								"{{order_id}}",
-								"accept"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Mark Order as read to deliver",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{monolith_url}}/orders/{{order_id}}/ready",
-							"host": [
-								"{{monolith_url}}"
-							],
-							"path": [
-								"orders",
-								"{{order_id}}",
-								"ready"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
 		{
 			"name": "Restaurants",
 			"item": [
@@ -541,7 +172,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"name\",\r\n    \"photoUrl\": \"photoUrl\",\r\n    \"price\": 1.00\r\n}",
+							"raw": "{\r\n    \"name\": \"name\",\r\n    \"photoUrl\": \"photoUrl\",\r\n    \"price\": 21.36\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -627,7 +258,19 @@
 					"name": "Get Product",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{monolith_url}}/restaurants/{{restaurant_id}}/products/{{product_id}}",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"restaurants",
+								"{{restaurant_id}}",
+								"products",
+								"{{product_id}}"
+							]
+						}
 					},
 					"response": []
 				},
@@ -635,7 +278,397 @@
 					"name": "Get all Restaurant's Products",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{monolith_url}}/restaurants/{{restaurant_id}}/products",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"restaurants",
+								"{{restaurant_id}}",
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ordering",
+			"item": [
+				{
+					"name": "Create Draft Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"order_id\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"{{$guid}}\",\r\n    \"restaurantId\": \"{{restaurant_id}}\",\r\n    \"items\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/orders",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add item to Draft Order",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": \"{{product_id}}\",\r\n    \"quantity\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/orders/{{order_id}}/add",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_id}}",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove item from Draft Order",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": \"{{product_id}}\",\r\n    \"quantity\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/orders/{{order_id}}/remove",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_id}}",
+								"remove"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Finalize Draft Order",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"{{$guid}}\",\r\n    \"deliveryDetails\": {\r\n        \"address\": \"address\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/orders/{{order_id}}/finalize",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_id}}",
+								"finalize"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"{{$guid}}\",\r\n    \"items\": [\r\n        {\r\n            \"productId\": \"{{$guid}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/orders/{{order_id}}",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pay Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderId\": \"{{order_id}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/payments",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"payments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Kitchen",
+			"item": [
+				{
+					"name": "Mark Order as ready to deliver",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/orders/{{order_id}}/ready",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_id}}",
+								"ready"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delivery",
+			"item": [
+				{
+					"name": "Get Order Delivery offer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"{{$guid}}\",\r\n    \"items\": [\r\n        {\r\n            \"productId\": \"{{$guid}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/deliveries/offer?courierAddress=Puławska 113a, 02-707 Warszawa",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"deliveries",
+								"offer"
+							],
+							"query": [
+								{
+									"key": "courierAddress",
+									"value": "Puławska 113a, 02-707 Warszawa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Accept Order Delivery",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"courierId\": \"{{$guid}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/deliveries/{{order_id}}/accept",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"deliveries",
+								"{{order_id}}",
+								"accept"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Start Order Delivery",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/deliveries/{{order_id}}/start",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"deliveries",
+								"{{order_id}}",
+								"start"
+							]
+						}
 					},
 					"response": []
 				}
