@@ -29,6 +29,17 @@ class DbProductRepository(
         return repository.findById(id).unwrap()?.let { mapToProduct(it) }
     }
 
+    override fun save(product: Product) {
+        repository.update(mapToProductEntity(product))
+        log.info("Product with ID=${product.id} updated")
+        publishAllDomainEvents(product)
+    }
+
+    override fun remove(id: UUID) {
+        repository.deleteById(id)
+        log.info("Product with ID=$id removed")
+    }
+
     private fun publishAllDomainEvents(product: Product) {
         product.getDomainEvents().forEach { publisher.publish(it) }
     }

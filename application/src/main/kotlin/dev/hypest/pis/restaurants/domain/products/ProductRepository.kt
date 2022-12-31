@@ -8,4 +8,8 @@ interface ProductRepository {
     fun add(product: Product)
 
     fun load(id: UUID): Product?
+
+    fun save(product: Product)
+
+    fun remove(id: UUID)
 }

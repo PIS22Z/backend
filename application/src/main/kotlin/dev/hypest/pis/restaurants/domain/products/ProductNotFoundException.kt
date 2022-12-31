@@ -1,4 +1,4 @@
-package dev.hypest.pis.orders.domain.restaurants
+package dev.hypest.pis.restaurants.domain.products
 
 import java.util.UUID
 

@@ -249,6 +249,272 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Restaurants",
+			"item": [
+				{
+					"name": "Create Restaurant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"restaurant_id\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"name\",\r\n    \"description\": \"description\",\r\n    \"logoUrl\": \"logoUrl\",\r\n    \"city\": \"city\",\r\n    \"street\": \"street\",\r\n    \"number\": \"number\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/restaurants",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"restaurants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Restaurant",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"nameNew\",\r\n    \"description\": \"descriptionNew\",\r\n    \"logoUrl\": \"logoUrlNew\",\r\n    \"city\": \"cityNew\",\r\n    \"street\": \"streetNew\",\r\n    \"number\": \"numberNew\" \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/restaurants/{{restaurant_id}}/",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"restaurants",
+								"{{restaurant_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Restaurant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"restaurant_id\", null)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{monolith_url}}/restaurants/{{restaurant_id}}/",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"restaurants",
+								"{{restaurant_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Restaurant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{monolith_url}}/restaurants/{{restaurant_id}}/",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"restaurants",
+								"{{restaurant_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Restaurants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{monolith_url}}/restaurants/",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"restaurants",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"product_id\", jsonData.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"name\",\r\n    \"photoUrl\": \"photoUrl\",\r\n    \"price\": 1.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/restaurants/{{restaurant_id}}/products/",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"restaurants",
+								"{{restaurant_id}}",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"nameNew\",\r\n    \"photoUrl\": \"photoUrlNew\",\r\n    \"price\": 10.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/restaurants/{{restaurant_id}}/products/{{product_id}}",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"restaurants",
+								"{{restaurant_id}}",
+								"products",
+								"{{product_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"product_id\", null)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{monolith_url}}/restaurants/{{restaurant_id}}/products/{{product_id}}",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"restaurants",
+								"{{restaurant_id}}",
+								"products",
+								"{{product_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Restaurant's Products",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
@@ -274,6 +540,14 @@
 	"variable": [
 		{
 			"key": "order_id",
+			"value": ""
+		},
+		{
+			"key": "restaurant_id",
+			"value": ""
+		},
+		{
+			"key": "product_id",
 			"value": ""
 		}
 	]
