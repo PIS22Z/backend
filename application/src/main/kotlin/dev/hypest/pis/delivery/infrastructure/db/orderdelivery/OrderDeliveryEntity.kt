@@ -9,5 +9,6 @@ data class OrderDeliveryEntity(
     @field:Id
     val id: UUID,
     val restaurantId: UUID,
-    val deliveryDetails: DeliveryDetails
+    val deliveryDetails: DeliveryDetails,
+    val assignedCourierId: UUID?
 )
