@@ -714,45 +714,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Get Product",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{monolith_url}}/restaurants/{{restaurant_id}}/products/{{product_id}}",
-							"host": [
-								"{{monolith_url}}"
-							],
-							"path": [
-								"restaurants",
-								"{{restaurant_id}}",
-								"products",
-								"{{product_id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Restaurant's Products",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{monolith_url}}/restaurants/{{restaurant_id}}/products/",
-							"host": [
-								"{{monolith_url}}"
-							],
-							"path": [
-								"restaurants",
-								"{{restaurant_id}}",
-								"products"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		}

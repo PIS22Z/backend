@@ -1,3 +1,5 @@
+@file:Suppress("InvalidPackageDeclaration")
+
 package dev.hypest.pis.payments.adapter.`in`.event
 
 import dev.hypest.pis.common.logger
