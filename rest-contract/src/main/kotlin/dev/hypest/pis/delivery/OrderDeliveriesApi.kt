@@ -22,4 +22,9 @@ interface OrderDeliveriesApi {
         @PathVariable orderDeliveryId: UUID,
         @Body request: AcceptOrderDeliveryRequest
     ): HttpResponse<UuidWrapper>
+
+    @Put("/{orderDeliveryId}/start")
+    fun startOrderDelivery(
+        @PathVariable orderDeliveryId: UUID
+    ): HttpResponse<UuidWrapper>
 }

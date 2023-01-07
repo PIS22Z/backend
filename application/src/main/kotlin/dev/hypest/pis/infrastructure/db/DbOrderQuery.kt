@@ -47,6 +47,7 @@ class DbOrderQuery(
             isPaid = orderToPay?.isPaid ?: false,
             isConfirmed = activeOrder?.isConfirmed ?: false,
             isReadyToDeliver = activeOrder?.isReadyToDeliver ?: false,
+            isBeingDelivered = orderDelivery?.isBeingDelivered ?: false,
             assignedCourierId = orderDelivery?.assignedCourierId
         )
     }

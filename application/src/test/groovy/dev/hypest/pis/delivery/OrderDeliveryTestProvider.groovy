@@ -4,6 +4,7 @@ import dev.hypest.pis.delivery.domain.orderdelivery.AcceptOrderDeliveryCommand
 import dev.hypest.pis.delivery.domain.orderdelivery.CreateOrderDeliveryCommand
 import dev.hypest.pis.delivery.domain.orderdelivery.DeliveryDetails
 import dev.hypest.pis.delivery.domain.orderdelivery.OrderDelivery
+import dev.hypest.pis.delivery.domain.orderdelivery.StartOrderDeliveryCommand
 
 class OrderDeliveryTestProvider {
 
@@ -15,6 +16,12 @@ class OrderDeliveryTestProvider {
         return new AcceptOrderDeliveryCommand(
                 map.orderDeliveryId ?: UUID.randomUUID(),
                 map.courierId ?: UUID.randomUUID()
+        )
+    }
+
+    static StartOrderDeliveryCommand getStartOrderDeliveryCommand(Map map = [:]) {
+        return new StartOrderDeliveryCommand(
+                map.orderDeliveryId ?: UUID.randomUUID()
         )
     }
 

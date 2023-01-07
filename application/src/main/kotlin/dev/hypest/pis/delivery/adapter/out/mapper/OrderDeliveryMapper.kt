@@ -14,7 +14,8 @@ object OrderDeliveryMapper {
             deliveryDetails = DbDeliveryDetails(
                 address = orderDelivery.deliveryDetails.address,
             ),
-            assignedCourierId = orderDelivery.assignedCourierId
+            assignedCourierId = orderDelivery.assignedCourierId,
+            isBeingDelivered = orderDelivery.isBeingDelivered
         )
 
     fun mapToOrderDelivery(orderDeliveryEntity: OrderDeliveryEntity): OrderDelivery =
@@ -24,6 +25,7 @@ object OrderDeliveryMapper {
             deliveryDetails = DeliveryDetails(
                 address = orderDeliveryEntity.deliveryDetails.address,
             ),
-            assignedCourierId = orderDeliveryEntity.assignedCourierId
+            assignedCourierId = orderDeliveryEntity.assignedCourierId,
+            isBeingDelivered = orderDeliveryEntity.isBeingDelivered
         )
 }

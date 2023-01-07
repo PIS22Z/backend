@@ -6,6 +6,8 @@ import dev.hypest.pis.delivery.OrderDeliveryOfferResponse
 import dev.hypest.pis.delivery.adapter.in.query.OrderDeliveryOfferQuery
 import dev.hypest.pis.delivery.domain.orderdelivery.AcceptOrderDeliveryCommand
 import dev.hypest.pis.delivery.domain.orderdelivery.AcceptOrderDeliveryHandler
+import dev.hypest.pis.delivery.domain.orderdelivery.StartOrderDeliveryCommand
+import dev.hypest.pis.delivery.domain.orderdelivery.StartOrderDeliveryHandler
 import io.micronaut.http.HttpStatus
 import io.micronaut.test.annotation.MockBean
 import jakarta.inject.Inject
@@ -17,6 +19,9 @@ class OrderDeliveriesControllerTest extends BaseTest {
 
     @Inject
     AcceptOrderDeliveryHandler acceptOrderDeliveryHandler
+
+    @Inject
+    StartOrderDeliveryHandler startOrderDeliveryHandler
 
     @Inject
     private OrderDeliveriesClient client
@@ -58,6 +63,27 @@ class OrderDeliveriesControllerTest extends BaseTest {
         response.body() == offer
     }
 
+    def "when put is performed against /{orderDeliveryId}/start"() {
+        given:
+        StartOrderDeliveryCommand command
+        def deliveryId = UUID.randomUUID()
+
+        when:
+        def response = client.startOrderDelivery(deliveryId)
+
+        then:
+        1 * startOrderDeliveryHandler.start(_ as StartOrderDeliveryCommand) >> { args ->
+            command = args[0] as StartOrderDeliveryCommand
+            deliveryId
+        }
+
+        command != null
+        command.orderDeliveryId == deliveryId
+
+        response.status == HttpStatus.OK
+        response.body().id != null
+    }
+
     @MockBean(OrderDeliveryOfferQuery)
     OrderDeliveryOfferQuery orderDeliveryOfferQuery() {
         Mock(OrderDeliveryOfferQuery)
@@ -66,5 +92,10 @@ class OrderDeliveriesControllerTest extends BaseTest {
     @MockBean(AcceptOrderDeliveryHandler)
     AcceptOrderDeliveryHandler acceptOrderDeliveryHandler() {
         Mock(AcceptOrderDeliveryHandler)
+    }
+
+    @MockBean(StartOrderDeliveryHandler)
+    StartOrderDeliveryHandler startOrderDeliveryHandler() {
+        Mock(StartOrderDeliveryHandler)
     }
 }
