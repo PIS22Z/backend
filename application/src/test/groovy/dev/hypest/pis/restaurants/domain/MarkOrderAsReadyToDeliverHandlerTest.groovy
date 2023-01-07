@@ -23,7 +23,7 @@ class MarkOrderAsReadyToDeliverHandlerTest extends BaseTest {
 
     def "given existing order, when it is marked as ready to deliver, then it should be saved to db and event should be published"() {
         given:
-        def existingOrder = ActiveOrderTestProvider.getAggregate(isConfirmed: true)
+        def existingOrder = ActiveOrderTestProvider.getAggregate(isAccepted: true)
         repository.add(existingOrder)
 
         when:

@@ -2,6 +2,7 @@ package dev.hypest.pis.restaurants.domain.activeorder
 
 import dev.hypest.pis.common.eventaggregator.AggregateRoot
 import dev.hypest.pis.restaurants.OrderReadyToDeliverEvent
+import dev.hypest.pis.restaurants.OrderRejectedEvent
 import java.util.UUID
 
 data class ActiveOrder(
@@ -10,7 +11,7 @@ data class ActiveOrder(
     val userId: UUID,
     val items: List<OrderItem>,
     val deliveryDetails: DeliveryDetails,
-    val isConfirmed: Boolean,
+    var isAccepted: Boolean?,
     var isReadyToDeliver: Boolean
 ) : AggregateRoot() {
 
@@ -29,16 +30,29 @@ data class ActiveOrder(
                 userId = userId,
                 items = items,
                 deliveryDetails = deliveryDetails,
-                isConfirmed = false,
+                isAccepted = null,
                 isReadyToDeliver = false
             )
         }
     }
 
+    fun accept() {
+        check(isAccepted == null) { "Order is already either accepted or rejected" }
+
+        isAccepted = true
+    }
+
+    fun reject() {
+        check(isAccepted == null) { "Order is already either accepted or rejected" }
+
+        isAccepted = false
+        publishOrderRejectedEvent()
+    }
+
     fun markAsReadyToDeliver() {
         check(!isReadyToDeliver) { "Order is already ready to deliver" }
 
-        check(isConfirmed) { "Order is not confirmed" }
+        check(isAccepted ?: false) { "Order is not accepted" }
 
         isReadyToDeliver = true
 
@@ -53,6 +67,14 @@ data class ActiveOrder(
                 deliveryDetails = OrderReadyToDeliverEvent.DeliveryDetails(
                     address = deliveryDetails.address
                 )
+            )
+        )
+    }
+
+    private fun publishOrderRejectedEvent() {
+        publishEvent(
+            OrderRejectedEvent(
+                orderId = id,
             )
         )
     }

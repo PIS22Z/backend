@@ -12,7 +12,7 @@ class ActiveOrderTestProvider {
                 map.userId ?: UUID.randomUUID(),
                 map.items ?: [],
                 map.deliveryDetails ?: new DeliveryDetails("address"),
-                map.isConfirmed ?: false,
+                map.isAccepted,
                 map.isReadyToDeliver ?: false
         )
     }

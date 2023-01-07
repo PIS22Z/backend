@@ -12,13 +12,22 @@ data class OrderToPay(
     val items: List<OrderItem>,
     val amount: BigDecimal,
     val deliveryDetails: DeliveryDetails,
-    var isPaid: Boolean
+    var isPaid: Boolean,
+    var isRefunded: Boolean,
 ) : AggregateRoot() {
 
     fun pay() {
+        check(!isRefunded) { "Order is already refunded" }
         check(!isPaid) { "Order is already paid" }
         isPaid = true
         publishOrderPaidEvent()
+    }
+
+    fun refund() {
+        check(!isRefunded) { "Order is already refunded" }
+        check(isPaid) { "Order is not paid" }
+        isPaid = false
+        isRefunded = true
     }
 
     companion object {
@@ -39,7 +48,8 @@ data class OrderToPay(
                 items = items,
                 amount = amount,
                 deliveryDetails = deliveryDetails,
-                isPaid = false
+                isPaid = false,
+                isRefunded = false,
             )
         }
     }

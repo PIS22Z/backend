@@ -12,6 +12,6 @@ data class ActiveOrderEntity(
     val userId: UUID,
     val items: List<OrderItem>,
     val deliveryDetails: DeliveryDetails,
-    val isConfirmed: Boolean,
+    val isAccepted: Boolean?,
     val isReadyToDeliver: Boolean
 )

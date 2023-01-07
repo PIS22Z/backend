@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "3d528427-5637-4dcf-82dd-aea310b3def9",
+		"_postman_id": "a90df4c4-8561-4670-ad2a-7732807ea071",
 		"name": "PIS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "19345317"
+		"_exporter_id": "17478370"
 	},
 	"item": [
 		{
@@ -365,6 +365,49 @@
 					"response": []
 				},
 				{
+					"name": "Accept Order",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{monolith_url}}/orders/{{order_id}}/accept",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_id}}",
+								"accept"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reject Order",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{monolith_url}}/orders/{{order_id}}/reject",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_id}}",
+								"reject"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Restaurants",
+			"item": [
+				{
 					"name": "Remove item from Draft Order",
 					"request": {
 						"method": "PUT",
@@ -667,6 +710,45 @@
 								"deliveries",
 								"{{order_id}}",
 								"start"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{monolith_url}}/restaurants/{{restaurant_id}}/products/{{product_id}}",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"restaurants",
+								"{{restaurant_id}}",
+								"products",
+								"{{product_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Restaurant's Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{monolith_url}}/restaurants/{{restaurant_id}}/products/",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"restaurants",
+								"{{restaurant_id}}",
+								"products"
 							]
 						}
 					},

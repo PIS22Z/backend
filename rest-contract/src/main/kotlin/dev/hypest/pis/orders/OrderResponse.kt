@@ -10,12 +10,7 @@ data class OrderResponse(
     val items: List<OrderItem>,
     val amount: BigDecimal?,
     val deliveryDetails: DeliveryDetails?,
-    val isFinalized: Boolean,
-    val isPaid: Boolean,
-    val isConfirmed: Boolean,
-    val isReadyToDeliver: Boolean,
-    val isBeingDelivered: Boolean,
-    val assignedCourierId: UUID?
+    val status: OrderStatus
 ) {
     data class OrderItem(
         val productId: UUID,
@@ -25,4 +20,16 @@ data class OrderResponse(
     data class DeliveryDetails(
         val address: String
     )
+
+    enum class OrderStatus {
+        CREATED,
+        FINALIZED,
+        PAID,
+        ACCEPTED,
+        REJECTED,
+        READY_TO_DELIVER,
+        COURIER_ASSIGNED,
+        DELIVERY_IN_PROGRESS,
+        DELIVERED,
+    }
 }

@@ -14,4 +14,14 @@ interface ActiveOrdersApi {
     fun markOrderAsReadyToDeliver(
         @PathVariable orderId: UUID
     ): HttpResponse<UuidWrapper>
+
+    @Put("/{orderId}/reject")
+    fun rejectActiveOrder(
+        @PathVariable orderId: UUID
+    ): HttpResponse<UuidWrapper>
+
+    @Put("/{orderId}/accept")
+    fun acceptActiveOrder(
+        @PathVariable orderId: UUID
+    ): HttpResponse<UuidWrapper>
 }

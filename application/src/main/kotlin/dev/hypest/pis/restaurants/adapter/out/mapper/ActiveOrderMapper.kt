@@ -15,7 +15,7 @@ object ActiveOrderMapper {
         userId = activeOrder.userId,
         items = activeOrder.items.map { DbOrderItem(it.productId, it.quantity) },
         deliveryDetails = DbDeliveryDetails(activeOrder.deliveryDetails.address),
-        isConfirmed = activeOrder.isConfirmed,
+        isAccepted = activeOrder.isAccepted,
         isReadyToDeliver = activeOrder.isReadyToDeliver
     )
 
@@ -25,7 +25,7 @@ object ActiveOrderMapper {
         userId = activeOrderEntity.userId,
         items = activeOrderEntity.items.map { OrderItem(it.productId, it.quantity) },
         deliveryDetails = DeliveryDetails(activeOrderEntity.deliveryDetails.address),
-        isConfirmed = activeOrderEntity.isConfirmed,
+        isAccepted = activeOrderEntity.isAccepted,
         isReadyToDeliver = activeOrderEntity.isReadyToDeliver
     )
 }
