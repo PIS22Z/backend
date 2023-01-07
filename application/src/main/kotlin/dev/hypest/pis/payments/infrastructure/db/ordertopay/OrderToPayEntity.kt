@@ -14,5 +14,6 @@ data class OrderToPayEntity(
     val items: List<OrderItem>,
     val amount: BigDecimal,
     val deliveryDetails: DeliveryDetails,
-    val isPaid: Boolean
+    val isPaid: Boolean,
+    val isRefunded: Boolean,
 )

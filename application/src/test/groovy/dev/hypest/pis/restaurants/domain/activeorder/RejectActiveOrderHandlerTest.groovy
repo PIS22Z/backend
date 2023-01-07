@@ -3,14 +3,14 @@ package dev.hypest.pis.restaurants.domain.activeorder
 import dev.hypest.pis.BaseTest
 import dev.hypest.pis.common.eventaggregator.DomainEventPublisher
 import dev.hypest.pis.restaurants.ActiveOrderTestProvider
-import dev.hypest.pis.restaurants.OrderReadyToDeliverEvent
+import dev.hypest.pis.restaurants.OrderRejectedEvent
 import io.micronaut.test.annotation.MockBean
 import jakarta.inject.Inject
 
-class MarkOrderAsReadyToDeliverHandlerTest extends BaseTest {
+class RejectActiveOrderHandlerTest extends BaseTest {
 
     @Inject
-    private MarkOrderAsReadyToDeliverHandler handler
+    private RejectActiveOrderHandler handler
 
     @Inject
     private ActiveOrderRepository repository
@@ -18,21 +18,21 @@ class MarkOrderAsReadyToDeliverHandlerTest extends BaseTest {
     @Inject
     DomainEventPublisher domainEventPublisher
 
-    def "given existing order, when it is marked as ready to deliver, then it should be saved to db and event should be published"() {
+    def "given paid order, when is it rejected by restaurants, then is should be saved to db"() {
         given:
-        def existingOrder = ActiveOrderTestProvider.getAggregate(isAccepted: true)
+        def existingOrder = ActiveOrderTestProvider.getAggregate(isPaid: true)
         repository.add(existingOrder)
 
         when:
-        def id = handler.markAsReady(new MarkOrderAsReadyToDeliverCommand(existingOrder.id))
+        def id = handler.reject(new RejectActiveOrderCommand(existingOrder.id))
 
         then:
         def savedOrder = repository.load(id)
         savedOrder != null
         savedOrder.id == id
-        savedOrder.readyToDeliver
+        savedOrder.isAccepted() == false
 
-        1 * domainEventPublisher.publish(_ as OrderReadyToDeliverEvent)
+        1 * domainEventPublisher.publish(_ as OrderRejectedEvent)
     }
 
     @MockBean(DomainEventPublisher)

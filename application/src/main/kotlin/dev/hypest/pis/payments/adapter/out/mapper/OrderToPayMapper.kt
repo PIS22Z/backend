@@ -18,7 +18,8 @@ object OrderToPayMapper {
         deliveryDetails = DbDeliveryDetails(
             address = orderToPay.deliveryDetails.address
         ),
-        isPaid = orderToPay.isPaid
+        isPaid = orderToPay.isPaid,
+        isRefunded = orderToPay.isRefunded,
     )
 
     fun mapToOrderToPay(orderToPayEntity: OrderToPayEntity): OrderToPay = OrderToPay(
@@ -30,6 +31,7 @@ object OrderToPayMapper {
         deliveryDetails = DomainDeliveryDetails(
             address = orderToPayEntity.deliveryDetails.address
         ),
-        isPaid = orderToPayEntity.isPaid
+        isPaid = orderToPayEntity.isPaid,
+        isRefunded = orderToPayEntity.isRefunded,
     )
 }

@@ -1,10 +1,6 @@
 package dev.hypest.pis.payments
 
-import dev.hypest.pis.payments.domain.ordertopay.CreateOrderToPayCommand
-import dev.hypest.pis.payments.domain.ordertopay.DeliveryDetails
-import dev.hypest.pis.payments.domain.ordertopay.OrderItem
-import dev.hypest.pis.payments.domain.ordertopay.OrderToPay
-import dev.hypest.pis.payments.domain.ordertopay.PayOrderCommand
+import dev.hypest.pis.payments.domain.ordertopay.*
 
 class OrderToPayTestProvider {
 
@@ -27,7 +23,8 @@ class OrderToPayTestProvider {
                 map.items ?: [new OrderItem(UUID.randomUUID(), 1)],
                 map.amount ?: BigDecimal.ZERO,
                 map.deliveryDetails ?: new DeliveryDetails("address"),
-                map.isPaid ?: false
+                map.isPaid ?: false,
+                map.isRefuned ?: false
         )
     }
 
