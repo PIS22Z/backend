@@ -51,6 +51,11 @@ class DbOrderQuery(
         )
     }
 
+    override fun getOrders(): List<OrderResponse> {
+        val draftOrders = draftOrderRepository.findAll()
+        return draftOrders.map { getOrder(it.id) }
+    }
+
     private fun getStatus(
         draftOrder: DraftOrderEntity,
         orderToPay: OrderToPayEntity?,
@@ -58,7 +63,7 @@ class DbOrderQuery(
         orderDelivery: OrderDeliveryEntity?
     ) = when {
 //        orderDelivery?.isDelivered -> OrderResponse.OrderStatus.DELIVERED
-//        orderDelivery?.isBeingDelivered -> OrderResponse.OrderStatus.DELIVERY_IN_PROGRESS
+        orderDelivery?.isBeingDelivered == true -> OrderResponse.OrderStatus.DELIVERY_IN_PROGRESS
         orderDelivery?.assignedCourierId != null -> OrderResponse.OrderStatus.COURIER_ASSIGNED
         activeOrder?.isReadyToDeliver == true -> OrderResponse.OrderStatus.READY_TO_DELIVER
         activeOrder?.isAccepted == true -> OrderResponse.OrderStatus.ACCEPTED

@@ -16,6 +16,9 @@ interface OrdersApi {
     @Get("/{orderId}")
     fun getOrder(@PathVariable orderId: UUID): HttpResponse<OrderResponse>
 
+    @Get
+    fun getOrders(): HttpResponse<List<OrderResponse>>
+
     @Post
     fun createOrder(@Body request: CreateOrderRequest): HttpResponse<UuidWrapper>
 

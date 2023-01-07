@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "a90df4c4-8561-4670-ad2a-7732807ea071",
+		"_postman_id": "7a4e54e3-97c3-4296-98bc-a5f3b994ec53",
 		"name": "PIS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "17478370"
+		"_exporter_id": "19345317"
 	},
 	"item": [
 		{
@@ -28,7 +28,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"name\",\r\n    \"description\": \"description\",\r\n    \"logoUrl\": \"logoUrl\",\r\n    \"city\": \"city\",\r\n    \"street\": \"street\",\r\n    \"number\": \"number\" \r\n}",
+							"raw": "{\r\n    \"name\": \"Sade Kebab Kuchnia turecka Kebab dowóz\",\r\n    \"description\": \"kebab\",\r\n    \"logoUrl\": \"https://www.restauracje-jedzenie-online.pl/img/logo_tcom/sade-kebab-warszawa-warszawa.png\",\r\n    \"city\": \"Warszawa\",\r\n    \"street\": \"Bukowinska\",\r\n    \"number\": \"12\" \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -172,7 +172,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"name\",\r\n    \"photoUrl\": \"photoUrl\",\r\n    \"price\": 21.36\r\n}",
+							"raw": "{\r\n    \"name\": \"Kebab Rollo\",\r\n    \"photoUrl\": \"https://res.cloudinary.com/glovoapp/h_225,f_auto,q_auto/Stores/ymgd7tqrvuczyb7ewcm5\",\r\n    \"price\": 21.36\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -365,49 +365,6 @@
 					"response": []
 				},
 				{
-					"name": "Accept Order",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "{{monolith_url}}/orders/{{order_id}}/accept",
-							"host": [
-								"{{monolith_url}}"
-							],
-							"path": [
-								"orders",
-								"{{order_id}}",
-								"accept"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Reject Order",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"url": {
-							"raw": "{{monolith_url}}/orders/{{order_id}}/reject",
-							"host": [
-								"{{monolith_url}}"
-							],
-							"path": [
-								"orders",
-								"{{order_id}}",
-								"reject"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Restaurants",
-			"item": [
-				{
 					"name": "Remove item from Draft Order",
 					"request": {
 						"method": "PUT",
@@ -546,6 +503,102 @@
 		{
 			"name": "Kitchen",
 			"item": [
+				{
+					"name": "Get Orders",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"{{$guid}}\",\r\n    \"items\": [\r\n        {\r\n            \"productId\": \"{{$guid}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/orders",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Accept Order",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"{{$guid}}\",\r\n    \"deliveryDetails\": {\r\n        \"address\": \"address\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/orders/{{order_id}}/accept",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_id}}",
+								"accept"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reject Order",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": \"{{$guid}}\",\r\n    \"deliveryDetails\": {\r\n        \"address\": \"address\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{monolith_url}}/orders/{{order_id}}/reject",
+							"host": [
+								"{{monolith_url}}"
+							],
+							"path": [
+								"orders",
+								"{{order_id}}",
+								"reject"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Mark Order as ready to deliver",
 					"event": [

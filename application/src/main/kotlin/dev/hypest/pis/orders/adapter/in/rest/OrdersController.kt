@@ -39,6 +39,11 @@ class OrdersController(
         return orderQuery.getOrder(orderId).let { HttpResponse.ok(it) }
     }
 
+    @Get
+    override fun getOrders(): HttpResponse<List<OrderResponse>> {
+        return orderQuery.getOrders().let { HttpResponse.ok(it) }
+    }
+
     @Post
     override fun createOrder(@Body request: CreateOrderRequest): HttpResponse<UuidWrapper> {
         val command = mapToCreateOrderCommand(request)
