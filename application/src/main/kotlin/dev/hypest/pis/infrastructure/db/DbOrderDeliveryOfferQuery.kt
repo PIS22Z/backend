@@ -37,6 +37,6 @@ class DbOrderDeliveryOfferQuery(
     @Suppress("MagicNumber")
     private fun getDeliveryRate(restaurantAddress: String?, deliveryAddress: String): BigDecimal {
         val addressLength = (restaurantAddress?.length ?: 0) + deliveryAddress.length
-        return BigDecimal.valueOf(0.5 * addressLength).setScale(2, RoundingMode.HALF_UP)
+        return BigDecimal.valueOf(0.49 * addressLength).setScale(2, RoundingMode.HALF_UP)
     }
 }
