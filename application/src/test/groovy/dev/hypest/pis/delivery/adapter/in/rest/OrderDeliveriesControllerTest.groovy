@@ -56,7 +56,7 @@ class OrderDeliveriesControllerTest extends BaseTest {
     def "when get is performed against /offer"() {
         given:
         def courierAddress = "address"
-        def offer = new OrderDeliveryOfferResponse(UUID.randomUUID(), UUID.randomUUID(), new OrderDeliveryOfferResponse.DeliveryDetails("address"))
+        def offer = new OrderDeliveryOfferResponse(UUID.randomUUID(), UUID.randomUUID(), null, null, new OrderDeliveryOfferResponse.DeliveryDetails("address"))
 
         when:
         def response = client.getOrderDeliveryOffer(courierAddress)

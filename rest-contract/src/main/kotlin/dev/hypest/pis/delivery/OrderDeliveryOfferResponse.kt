@@ -5,6 +5,8 @@ import java.util.UUID
 data class OrderDeliveryOfferResponse(
     val id: UUID,
     val restaurantId: UUID,
+    val restaurantName: String?,
+    val restaurantAddress: String?,
     val deliveryDetails: DeliveryDetails
 ) {
     data class DeliveryDetails(
