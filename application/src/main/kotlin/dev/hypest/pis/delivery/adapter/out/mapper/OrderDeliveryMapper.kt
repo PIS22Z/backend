@@ -15,7 +15,8 @@ object OrderDeliveryMapper {
                 address = orderDelivery.deliveryDetails.address,
             ),
             assignedCourierId = orderDelivery.assignedCourierId,
-            isBeingDelivered = orderDelivery.isBeingDelivered
+            isBeingDelivered = orderDelivery.isBeingDelivered,
+            isDelivered = orderDelivery.isDelivered
         )
 
     fun mapToOrderDelivery(orderDeliveryEntity: OrderDeliveryEntity): OrderDelivery =
@@ -26,6 +27,7 @@ object OrderDeliveryMapper {
                 address = orderDeliveryEntity.deliveryDetails.address,
             ),
             assignedCourierId = orderDeliveryEntity.assignedCourierId,
-            isBeingDelivered = orderDeliveryEntity.isBeingDelivered
+            isBeingDelivered = orderDeliveryEntity.isBeingDelivered,
+            isDelivered = orderDeliveryEntity.isDelivered
         )
 }

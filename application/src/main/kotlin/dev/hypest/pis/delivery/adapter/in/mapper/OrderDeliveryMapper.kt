@@ -4,6 +4,7 @@ package dev.hypest.pis.delivery.adapter.`in`.mapper
 
 import dev.hypest.pis.delivery.AcceptOrderDeliveryRequest
 import dev.hypest.pis.delivery.domain.orderdelivery.AcceptOrderDeliveryCommand
+import dev.hypest.pis.delivery.domain.orderdelivery.FinishOrderDeliveryCommand
 import dev.hypest.pis.delivery.domain.orderdelivery.StartOrderDeliveryCommand
 import java.util.UUID
 
@@ -20,5 +21,11 @@ object OrderDeliveryMapper {
         orderDeliveryId: UUID
     ): StartOrderDeliveryCommand {
         return StartOrderDeliveryCommand(orderDeliveryId)
+    }
+
+    fun mapToFinishOrderDeliveryCommand(
+        orderDeliveryId: UUID
+    ): FinishOrderDeliveryCommand {
+        return FinishOrderDeliveryCommand(orderDeliveryId)
     }
 }

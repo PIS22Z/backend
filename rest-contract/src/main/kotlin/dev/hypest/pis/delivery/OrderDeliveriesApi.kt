@@ -13,7 +13,6 @@ import java.util.UUID
 @Controller("/deliveries")
 interface OrderDeliveriesApi {
 
-    // TODO dodać adres jako request param, żeby móc zwrócić najlepsze zamówienie
     @Get("/offer")
     fun getOrderDeliveryOffer(@QueryValue courierAddress: String): HttpResponse<OrderDeliveryOfferResponse>
 
@@ -25,6 +24,11 @@ interface OrderDeliveriesApi {
 
     @Put("/{orderDeliveryId}/start")
     fun startOrderDelivery(
+        @PathVariable orderDeliveryId: UUID
+    ): HttpResponse<UuidWrapper>
+
+    @Put("/{orderDeliveryId}/finish")
+    fun finishOrderDelivery(
         @PathVariable orderDeliveryId: UUID
     ): HttpResponse<UuidWrapper>
 }
