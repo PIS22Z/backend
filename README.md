@@ -18,3 +18,15 @@ Uruchomienie aplikacji
 ./gradlew build -x test
 java -jar build/libs/backend-0.0.1-SNAPSHOT-all.jar
 ```
+
+## Uruchomienie testów
+
+```bash
+./gradlew test
+```
+
+## Uruchomienie statycznej analizy kodu
+
+```bash
+./gradlew detekt
+```
