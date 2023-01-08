@@ -6,6 +6,8 @@ import dev.hypest.pis.delivery.OrderDeliveryOfferResponse
 import dev.hypest.pis.delivery.adapter.in.query.OrderDeliveryOfferQuery
 import dev.hypest.pis.delivery.domain.orderdelivery.AcceptOrderDeliveryCommand
 import dev.hypest.pis.delivery.domain.orderdelivery.AcceptOrderDeliveryHandler
+import dev.hypest.pis.delivery.domain.orderdelivery.FinishOrderDeliveryCommand
+import dev.hypest.pis.delivery.domain.orderdelivery.FinishOrderDeliveryHandler
 import dev.hypest.pis.delivery.domain.orderdelivery.StartOrderDeliveryCommand
 import dev.hypest.pis.delivery.domain.orderdelivery.StartOrderDeliveryHandler
 import io.micronaut.http.HttpStatus
@@ -22,6 +24,9 @@ class OrderDeliveriesControllerTest extends BaseTest {
 
     @Inject
     StartOrderDeliveryHandler startOrderDeliveryHandler
+
+    @Inject
+    FinishOrderDeliveryHandler finishOrderDeliveryHandler
 
     @Inject
     private OrderDeliveriesClient client
@@ -84,6 +89,27 @@ class OrderDeliveriesControllerTest extends BaseTest {
         response.body().id != null
     }
 
+    def "when put is performed against /{orderDeliveryId}/finish"() {
+        given:
+        FinishOrderDeliveryCommand command
+        def deliveryId = UUID.randomUUID()
+
+        when:
+        def response = client.finishOrderDelivery(deliveryId)
+
+        then:
+        1 * startOrderDeliveryHandler.start(_ as FinishOrderDeliveryCommand) >> { args ->
+            command = args[0] as FinishOrderDeliveryCommand
+            deliveryId
+        }
+
+        command != null
+        command.orderDeliveryId == deliveryId
+
+        response.status == HttpStatus.OK
+        response.body().id != null
+    }
+
     @MockBean(OrderDeliveryOfferQuery)
     OrderDeliveryOfferQuery orderDeliveryOfferQuery() {
         Mock(OrderDeliveryOfferQuery)
@@ -97,5 +123,10 @@ class OrderDeliveriesControllerTest extends BaseTest {
     @MockBean(StartOrderDeliveryHandler)
     StartOrderDeliveryHandler startOrderDeliveryHandler() {
         Mock(StartOrderDeliveryHandler)
+    }
+
+    @MockBean(FinishOrderDeliveryHandler)
+    FinishOrderDeliveryHandler finishOrderDeliveryHandler() {
+        Mock(FinishOrderDeliveryHandler)
     }
 }

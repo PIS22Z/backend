@@ -7,9 +7,11 @@ import dev.hypest.pis.delivery.AcceptOrderDeliveryRequest
 import dev.hypest.pis.delivery.OrderDeliveriesApi
 import dev.hypest.pis.delivery.OrderDeliveryOfferResponse
 import dev.hypest.pis.delivery.adapter.`in`.mapper.OrderDeliveryMapper.mapToAcceptOrderDeliveryCommand
+import dev.hypest.pis.delivery.adapter.`in`.mapper.OrderDeliveryMapper.mapToFinishOrderDeliveryCommand
 import dev.hypest.pis.delivery.adapter.`in`.mapper.OrderDeliveryMapper.mapToStartOrderDeliveryCommand
 import dev.hypest.pis.delivery.adapter.`in`.query.OrderDeliveryOfferQuery
 import dev.hypest.pis.delivery.domain.orderdelivery.AcceptOrderDeliveryHandler
+import dev.hypest.pis.delivery.domain.orderdelivery.FinishOrderDeliveryHandler
 import dev.hypest.pis.delivery.domain.orderdelivery.StartOrderDeliveryHandler
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Body
@@ -24,7 +26,8 @@ import java.util.UUID
 class OrderDeliveriesController(
     private val orderDeliveryOfferQuery: OrderDeliveryOfferQuery,
     private val acceptOrderDeliveryHandler: AcceptOrderDeliveryHandler,
-    private val startOrderDeliveryHandler: StartOrderDeliveryHandler
+    private val startOrderDeliveryHandler: StartOrderDeliveryHandler,
+    private val finishOrderDeliveryHandler: FinishOrderDeliveryHandler
 ) : OrderDeliveriesApi {
 
     @Get("/offer")
@@ -47,6 +50,13 @@ class OrderDeliveriesController(
     override fun startOrderDelivery(@PathVariable orderDeliveryId: UUID): HttpResponse<UuidWrapper> {
         val command = mapToStartOrderDeliveryCommand(orderDeliveryId)
         val id = startOrderDeliveryHandler.start(command)
+        return HttpResponse.ok(UuidWrapper(id))
+    }
+
+    @Put("/{orderDeliveryId}/finish")
+    override fun finishOrderDelivery(@PathVariable orderDeliveryId: UUID): HttpResponse<UuidWrapper> {
+        val command = mapToFinishOrderDeliveryCommand(orderDeliveryId)
+        val id = finishOrderDeliveryHandler.finish(command)
         return HttpResponse.ok(UuidWrapper(id))
     }
 }

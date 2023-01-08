@@ -22,6 +22,5 @@ class PayOrderHandlerImpl(
 }
 
 data class PayOrderCommand(
-    val orderId: UUID,
-    // TODO dodać detale karty kredytowej?
+    val orderId: UUID
 )

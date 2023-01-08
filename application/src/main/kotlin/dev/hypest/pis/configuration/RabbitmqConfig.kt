@@ -10,7 +10,7 @@ class RabbitmqConfig : ChannelInitializer() {
 
     override fun initialize(channel: Channel, name: String) {
         // exchange + queues
-        channel.exchangeDeclare(EXCHANGE, BuiltinExchangeType.DIRECT) // TODO direct?
+        channel.exchangeDeclare(EXCHANGE, BuiltinExchangeType.DIRECT)
         channel.queueDeclare(ORDER_FINALIZED, false, false, false, emptyMap())
         channel.queueDeclare(ORDER_PAID, false, false, false, emptyMap())
         channel.queueDeclare(ORDER_READY, false, false, false, emptyMap())
