@@ -14,6 +14,9 @@ data class OrderResponse(
 ) {
     data class OrderItem(
         val productId: UUID,
+        val productName: String?,
+        val productPhotoUrl: String?,
+        val productPrice: BigDecimal?,
         val quantity: Int
     )
 

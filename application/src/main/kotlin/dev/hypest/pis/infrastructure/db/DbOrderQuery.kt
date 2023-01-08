@@ -12,6 +12,7 @@ import dev.hypest.pis.payments.infrastructure.db.ordertopay.MicronautDataOrderTo
 import dev.hypest.pis.payments.infrastructure.db.ordertopay.OrderToPayEntity
 import dev.hypest.pis.restaurants.infrastructure.db.activeorder.ActiveOrderEntity
 import dev.hypest.pis.restaurants.infrastructure.db.activeorder.MicronautDataActiveOrderRepository
+import dev.hypest.pis.restaurants.infrastructure.db.products.MicronautDataProductRepository
 import jakarta.inject.Singleton
 import java.util.UUID
 
@@ -20,7 +21,8 @@ class DbOrderQuery(
     private val draftOrderRepository: MicronautDataDraftOrderRepository,
     private val orderToPayRepository: MicronautDataOrderToPayRepository,
     private val activeOrderRepository: MicronautDataActiveOrderRepository,
-    private val orderDeliveryRepository: MicronautDataOrderDeliveryRepository
+    private val orderDeliveryRepository: MicronautDataOrderDeliveryRepository,
+    private val productRepository: MicronautDataProductRepository
 ) : OrderQuery {
 
     override fun getOrder(orderId: UUID): OrderResponse {
@@ -36,8 +38,13 @@ class DbOrderQuery(
             restaurantId = draftOrder.restaurantId,
             userId = draftOrder.userId,
             items = draftOrder.items.map {
+                val product = productRepository.findById(it.productId).unwrap()
+
                 OrderResponse.OrderItem(
                     productId = it.productId,
+                    productName = product?.name,
+                    productPhotoUrl = product?.photoUrl,
+                    productPrice = product?.price,
                     quantity = it.quantity
                 )
             },
