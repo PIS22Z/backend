@@ -98,7 +98,7 @@ class OrderDeliveriesControllerTest extends BaseTest {
         def response = client.finishOrderDelivery(deliveryId)
 
         then:
-        1 * finishOrderDeliveryHandler.start(_ as FinishOrderDeliveryCommand) >> { args ->
+        1 * finishOrderDeliveryHandler.finish(_ as FinishOrderDeliveryCommand) >> { args ->
             command = args[0] as FinishOrderDeliveryCommand
             deliveryId
         }
