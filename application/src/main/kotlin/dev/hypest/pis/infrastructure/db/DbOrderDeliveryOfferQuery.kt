@@ -27,7 +27,7 @@ class DbOrderDeliveryOfferQuery(
             restaurantId = selectedDelivery.restaurantId,
             restaurantName = restaurant?.name,
             restaurantAddress = restaurantAddress,
-            deliveryRate = getDeliveryRate(),
+            deliveryRate = getDeliveryRate(restaurantAddress, selectedDelivery.deliveryDetails.address),
             deliveryDetails = OrderDeliveryOfferResponse.DeliveryDetails(
                 address = selectedDelivery.deliveryDetails.address
             )
@@ -35,9 +35,8 @@ class DbOrderDeliveryOfferQuery(
     }
 
     @Suppress("MagicNumber")
-    private fun getDeliveryRate(): BigDecimal {
-        // random double between 5 and 20
-        val random = (Math.random() * 15) + 5
-        return BigDecimal(random).setScale(2, RoundingMode.HALF_UP)
+    private fun getDeliveryRate(restaurantAddress: String?, deliveryAddress: String): BigDecimal {
+        val addressLength = (restaurantAddress?.length ?: 0) + deliveryAddress.length
+        return BigDecimal.valueOf(0.5 * addressLength).setScale(2, RoundingMode.HALF_UP)
     }
 }
